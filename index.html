@@ -3,238 +3,283 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Связь с ИстинаВсевышним + Комбинатор</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<title>Связь с ИстинаВсевышним</title>
 <style>
-:root{
-  --bg: linear-gradient(180deg,#cfe9ff,#9fd0ff);
-  --card: rgba(255,255,255,0.95);
-  --text:#2c3e50;
-  --accent:#3498db;
-  --btn-bg:#ffffff;
-  --btn-text:#2c3e50;
-  --border:#bcdcff;
-  --soft:rgba(0,0,0,.05);
-  --progress-bg:#e2e8f0;
-  --warning-bg:#fef3c7;
-  --warning-text:#92400e;
-  --warning-border:#f59e0b;
-  --success:#48bb78;
-}
-body.night{
-  --bg: radial-gradient(circle at top,#2a004f,#120022 70%);
-  --card: rgba(35,15,60,0.92);
-  --text:#f5e6b8;
-  --accent:#9b59ff;
-  --btn-bg: linear-gradient(180deg,#6a00ff,#3b0080);
-  --btn-text:#fff4c2;
-  --border:#7d4cff;
-  --soft:rgba(255,255,255,.08);
-  --progress-bg:rgba(255,255,255,.1);
-  --warning-bg:rgba(155,89,255,0.2);
-  --warning-text:#ffd36b;
-  --warning-border:#9b59ff;
-}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Verdana,sans-serif}
-body{background:var(--bg);color:var(--text);padding:12px;min-height:100vh}
-.gradient-text{background:linear-gradient(90deg,#2c3e50,#2c3e50);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-body.night .gradient-text{background:linear-gradient(90deg,#fff7b0,#ffd36b,#d4af37,#c68642,#ffae42);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.container{max-width:1000px;margin:0 auto}
+:root{--bg:linear-gradient(180deg,#cfe9ff,#9fd0ff);--card:rgba(255,255,255,0.95);--text-plain:#2c3e50;--text-gradient:#2c3e50;--accent:#3498db;--button-bg:#ffffff;--button-text:#2c3e50;--border:#bcdcff;--suggest-bg:#ffffff;--suggest-text:#2c3e50;--soft:rgba(0,0,0,.05);--progress-bg:#e2e8f0;--warning-bg:#fef3c7;--warning-text:#92400e;--warning-border:#f59e0b;--success:#48bb78}
+body.night{--bg:radial-gradient(circle at top,#2a004f,#120022 70%);--card:rgba(35,15,60,0.92);--text-plain:#f5e6b8;--text-gradient:linear-gradient(90deg,#fff7b0,#ffd36b,#d4af37,#c68642,#ffae42);--accent:#9b59ff;--button-bg:linear-gradient(180deg,#6a00ff,#3b0080);--button-text:#fff4c2;--border:#7d4cff;--suggest-bg:#2a104f;--suggest-text:#f5e6b8;--soft:rgba(255,255,255,.08);--progress-bg:rgba(255,255,255,0.1);--warning-bg:rgba(155,89,255,0.2);--warning-text:#ffd36b;--warning-border:#9b59ff}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Tahoma,Verdana,sans-serif}
+body{background:var(--bg);color:var(--text-plain);padding:12px;min-height:100vh}
+.gradient-text{background:var(--text-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.container{max-width:1000px;margin:auto;position:relative}
 h1{text-align:center;margin:12px 0;font-size:1.35rem;line-height:1.25}
-.panel{background:var(--card);border-radius:10px;padding:14px;margin:10px 0;box-shadow:0 2px 6px rgba(0,0,0,.15);border:1px solid var(--border)}
+.hint{font-size:13px;color:rgba(0,0,0,.55);margin-bottom:8px}
+body.night .hint{color:rgba(245,230,184,.78)}
+.panel,.info-panel{background:var(--card);border-radius:10px;padding:14px;margin:10px 0;box-shadow:0 2px 6px rgba(0,0,0,.15);border:1px solid var(--border)}
 textarea,select,button{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid var(--border);font-size:15px}
-textarea{min-height:190px;resize:vertical;background:#fff;color:var(--text)}
-body.night textarea{background:rgba(0,0,0,.2);color:var(--text)}
-button{background:var(--btn-bg);color:var(--btn-text);cursor:pointer;font-weight:bold}
+textarea{min-height:190px;resize:vertical;background:#fff;color:var(--text-plain)}
+body.night textarea{background:rgba(0,0,0,.20);color:var(--text-plain)}
+button{background:var(--button-bg);color:var(--button-text);cursor:pointer;font-weight:bold}
 button:hover{filter:brightness(1.05)}
-.btn-secondary{background:var(--accent);color:#fff}
-.btn-danger{background:#e74c3c;color:#fff}
-.btn-copy{background:#f39c12;color:#fff}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-success{background:var(--success);color:#fff}
-.top-controls{display:flex;justify-content:flex-end;gap:14px;align-items:center;font-size:13px;flex-wrap:wrap;user-select:none}
+.btn-secondary{background:var(--accent);color:white}.btn-danger{background:#e74c3c;color:white}.btn-copy{background:#f39c12;color:white}.btn-primary{background:var(--accent);color:white;border:none}.btn-success{background:var(--success);color:white;border:none}.btn-undo{background:#95a5a6;color:white}
+.top-controls{display:flex;justify-content:flex-end;gap:14px;align-items:center;font-size:13px;user-select:none;flex-wrap:wrap}
 .top-controls label{display:flex;gap:8px;align-items:center}
 .app-nav{display:flex;justify-content:center;gap:10px;margin:10px 0;flex-wrap:wrap}
-.app-nav button{width:auto;padding:10px 24px;font-size:15px;border-radius:20px;transition:all .3s}
-.app-nav button.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 3px 10px rgba(0,0,0,.2)}
-.hint{font-size:13px;opacity:.7;margin-bottom:8px}
-.small-note{font-size:12px;opacity:.85;margin-top:4px}
-.suggestions{position:sticky;top:10px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;max-height:290px;overflow-y:auto;display:none;z-index:99;margin:10px 0 6px}
-.suggestion-header{background:var(--accent);color:#fff;padding:8px 12px;font-weight:bold;border-radius:10px 10px 0 0}
+.app-nav button{width:auto;padding:10px 20px;font-size:14px;border-radius:20px;transition:all .3s}
+.app-nav button.active{background:var(--accent);color:white;border-color:var(--accent);box-shadow:0 3px 10px rgba(0,0,0,.2)}
+.suggestions{position:sticky;top:10px;background:var(--suggest-bg);color:var(--suggest-text);border:1px solid var(--border);border-radius:10px;max-height:290px;overflow-y:auto;display:none;z-index:99;margin:10px 0 6px}
+.suggestion-header{background:var(--accent);color:white;padding:8px 12px;font-weight:bold;border-radius:10px 10px 0 0}
 .suggestion-subheader{background:var(--soft);padding:6px 12px;font-size:13px}
 .suggestion-item{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.12);cursor:pointer}
-.suggestion-item:hover{background:var(--soft)}
-.word-tag{display:inline-block;padding:4px 8px;margin:3px 4px 0 0;border-radius:8px;font-family:monospace;background:var(--soft)}
+body.night .suggestion-item{border-bottom:1px solid rgba(255,255,255,.10)}
+.suggestion-item:hover{background:rgba(0,0,0,.05)}
+body.night .suggestion-item:hover{background:rgba(255,255,255,.07)}
+.word-tag{display:inline-block;padding:6px 10px;margin:4px 4px 0 0;border-radius:8px;font-family:monospace;background:var(--soft);cursor:pointer;border:1px solid transparent;transition:all .15s;font-size:14px}
+.word-tag:hover{background:var(--accent);color:white;transform:translateY(-1px)}
 table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{border-bottom:1px solid rgba(0,0,0,.12);padding:8px;font-size:14px}
-th{background:var(--accent);color:#fff}
-.footer{text-align:center;font-size:14px;opacity:.6;margin-top:24px;line-height:1.5}
-/* Комбинатор */
+th,td{border-bottom:1px solid rgba(0,0,0,.12);padding:8px}
+body.night th,body.night td{border-bottom:1px solid rgba(255,255,255,.10)}
+th{background:var(--accent);color:white}
+.footer{text-align:center;font-size:14px;color:rgba(0,0,0,.55);margin-top:24px;line-height:1.5}
+body.night .footer{color:rgba(245,230,184,.78)}
+.small-note{font-size:12px;opacity:.85;margin-top:4px}
 #appCombinator{display:none}
-.upload-section{text-align:center;border:2px dashed var(--border);transition:.3s}
+.upload-section{text-align:center;border:2px dashed var(--border);transition:all .3s}
 .upload-section:hover{border-color:var(--accent);background:var(--soft)}
-.upload-section.dragover{border-color:var(--accent);background:rgba(155,89,255,.1)}
 input[type="file"]{display:none}
-.upload-btn{display:inline-block;padding:15px 40px;background:var(--btn-bg);color:var(--btn-text);border-radius:10px;cursor:pointer;font-size:18px;font-weight:bold;border:1px solid var(--border)}
+.upload-btn{display:inline-block;padding:15px 40px;background:var(--button-bg);color:var(--button-text);border-radius:10px;cursor:pointer;font-size:18px;font-weight:bold;border:1px solid var(--border)}
 .file-info{margin-top:15px;opacity:.7;font-size:14px}
 .controls{display:flex;flex-wrap:wrap;gap:15px;align-items:center;justify-content:center}
 .control-group{display:flex;align-items:center;gap:10px}
-input[type="number"].comb-input{width:100px;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:16px;text-align:center;font-weight:bold;background:var(--card);color:var(--text)}
+input[type="number"].comb-input{width:100px;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:16px;text-align:center;font-weight:bold;background:var(--card);color:var(--text-plain)}
 .preset-buttons,.word-count-buttons{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .preset-btn,.word-count-btn{padding:8px 16px;font-size:13px;width:auto}
-.preset-btn.active,.word-count-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.preset-btn.active,.word-count-btn.active{background:var(--accent);color:white;border-color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:10px}
 .stat-card{background:var(--card);padding:15px;border-radius:10px;text-align:center;border:1px solid var(--border)}
 .stat-value{font-size:1.8em;font-weight:bold;color:var(--accent)}
 .stat-label{font-size:.85em;opacity:.8;margin-top:5px}
 .progress-container{margin:15px 0;display:none}
 .progress-bar{width:100%;height:24px;background:var(--progress-bg);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
-.progress-fill{height:100%;background:var(--accent);width:0%;transition:width .3s;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:bold}
+.progress-fill{height:100%;background:var(--accent);width:0%;transition:width .3s;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:bold}
 .progress-info{text-align:center;margin-top:8px;font-size:13px;opacity:.8}
 .results{background:var(--card);border-radius:10px;padding:15px;max-height:600px;overflow-y:auto;border:1px solid var(--border)}
 .results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:15px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:15px}
 .results-count{font-size:1.1em;font-weight:600}
-.total-badge{background:var(--accent);color:#fff;padding:4px 12px;border-radius:20px;font-size:14px;font-weight:600}
+.total-badge{background:var(--accent);color:white;padding:4px 12px;border-radius:20px;font-size:14px;font-weight:600}
 .result-item{background:var(--soft);padding:12px;margin-bottom:8px;border-radius:8px;border-left:4px solid var(--accent);display:flex;justify-content:space-between;align-items:center}
 .result-words{font-size:1em;word-break:break-all}
-.result-sum{background:var(--accent);color:#fff;padding:4px 12px;border-radius:15px;font-weight:bold;font-size:.85em;margin-left:10px}
+.result-sum{background:var(--accent);color:white;padding:4px 12px;border-radius:15px;font-weight:bold;font-size:.85em;white-space:nowrap;margin-left:10px}
 .empty-state{text-align:center;padding:40px 20px;opacity:.6}
 .empty-state-icon{font-size:3em;margin-bottom:15px}
 .export-buttons{display:flex;gap:8px;flex-wrap:wrap}
 .warning{background:var(--warning-bg);border:2px solid var(--warning-border);color:var(--warning-text);padding:12px;border-radius:8px;margin-bottom:15px;display:none}
 .chunk-info{background:var(--soft);border:1px solid var(--border);padding:10px;border-radius:8px;margin-bottom:10px;font-size:13px;display:none}
 .pagination-controls{display:flex;justify-content:center;align-items:center;gap:10px;margin:20px 0;padding:10px;background:var(--soft);border-radius:8px;border:1px solid var(--border);flex-wrap:wrap}
-.pagination-btn{padding:8px 12px;background:var(--btn-bg);color:var(--btn-text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;font-size:13px;width:auto}
-.pagination-btn:hover:not(:disabled){background:var(--accent);color:#fff}
-.pagination-btn:disabled{opacity:.3;cursor:not-allowed}
+.pagination-btn{padding:8px 12px;background:var(--button-bg);color:var(--button-text);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-weight:600;font-size:13px;width:auto}
 .pagination-info{font-size:14px;font-weight:600;color:var(--accent);min-width:100px;text-align:center}
 .jump-to-page{display:flex;align-items:center;gap:5px}
-.jump-to-page input{width:60px;padding:6px;border:2px solid var(--border);border-radius:6px;text-align:center;background:var(--card);color:var(--text);font-weight:600}
+.jump-to-page input{width:60px;padding:6px;border:2px solid var(--border);border-radius:6px;text-align:center;background:var(--card);color:var(--text-plain);font-weight:600}
 .page-size-selector{display:flex;align-items:center;gap:8px;margin-left:auto}
-.page-size-selector select{padding:6px;border-radius:6px;border:2px solid var(--border);background:var(--card);color:var(--text);font-weight:600;width:auto}
+.page-size-selector select{padding:6px;border-radius:6px;border:2px solid var(--border);background:var(--card);color:var(--text-plain);font-weight:600;width:auto}
 .range-info-small{text-align:center;padding:8px;font-size:13px;opacity:.7;border-top:1px dashed var(--border);margin-top:10px}
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;visibility:hidden;transition:all .3s}
 .modal-overlay.active{opacity:1;visibility:visible}
 .modal-content{background:var(--card);border-radius:16px;padding:24px;max-width:90vw;max-height:85vh;width:600px;border:2px solid var(--border);display:flex;flex-direction:column}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid var(--border)}
 .modal-title{font-size:1.3em;font-weight:bold;color:var(--accent)}
-.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text);width:36px;height:36px;border-radius:50%}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-plain);width:36px;height:36px;border-radius:50%}
 .value-selector{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
-.value-input{width:80px;padding:8px;border:2px solid var(--border);border-radius:8px;text-align:center;font-weight:bold;background:var(--card);color:var(--text)}
+.value-input{width:80px;padding:8px;border:2px solid var(--border);border-radius:8px;text-align:center;font-weight:bold;background:var(--card);color:var(--text-plain)}
 .quick-values{display:flex;gap:8px;flex-wrap:wrap}
 .quick-value-btn{padding:6px 12px;font-size:12px;background:var(--soft);width:auto}
-.quick-value-btn.active{background:var(--accent);color:#fff}
 .combinations-list{flex:1;overflow-y:auto;max-height:50vh;border:1px solid var(--border);border-radius:10px;padding:10px;background:var(--soft)}
 .combination-option{display:flex;align-items:center;justify-content:space-between;padding:12px;margin-bottom:8px;background:var(--card);border-radius:8px;border:2px solid transparent;cursor:pointer}
-.combination-option:hover{border-color:var(--accent)}
 .combination-option.selected{border-color:var(--accent);background:rgba(155,89,255,.1)}
 .combination-values{display:flex;gap:8px;align-items:center;font-weight:bold}
-.value-tag{background:var(--accent);color:#fff;padding:4px 10px;border-radius:15px;font-size:14px}
+.value-tag{background:var(--accent);color:white;padding:4px 10px;border-radius:15px;font-size:14px}
 .value-plus{opacity:.6;font-size:18px}
-.combination-count{background:var(--success);color:#fff;padding:4px 12px;border-radius:15px;font-size:12px;font-weight:bold}
+.combination-count{background:var(--success);color:white;padding:4px 12px;border-radius:15px;font-size:12px;font-weight:bold}
 .modal-footer{margin-top:20px;display:flex;gap:10px;justify-content:flex-end}
 .btn-modal{padding:12px 24px;width:auto}
 .range-info{text-align:center;padding:10px;background:var(--soft);border-radius:8px;margin-bottom:15px;font-size:13px}
 .no-combinations{text-align:center;padding:40px;opacity:.6}
+.paste-section{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:10px;padding:12px;border-top:1px dashed var(--border)}
+.paste-area{display:flex;gap:10px;width:100%;max-width:500px}
+.paste-area textarea{flex:1;padding:10px;border:2px solid var(--border);border-radius:8px;background:var(--card);color:var(--text-plain);font-size:14px;min-height:80px;margin:0}
+.paste-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.paste-actions button{padding:8px 16px;font-size:13px;width:auto;margin:0}
+.paste-status{font-size:13px;opacity:.7;margin-top:4px;text-align:center}
+#appRhymes{display:none}
+.rhyme-input-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.rhyme-input-row label{font-size:14px;white-space:nowrap}
+.rhyme-input-row input[type="number"]{width:80px;padding:8px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text-plain);font-weight:bold;text-align:center}
+.rhyme-search-input{width:100%;padding:12px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text-plain);font-size:15px;margin-bottom:10px}
+.rhyme-group-block{margin-bottom:14px}
+.rhyme-group-header{font-size:13px;font-weight:bold;padding:6px 10px;border-radius:6px;margin-bottom:6px;background:var(--accent);color:white}
+.rhyme-group-body{padding:4px 2px}
+.rhyme-search-panel{background:var(--suggest-bg);color:var(--suggest-text);border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.18);padding:12px;margin:10px 0}
+.rhyme-search-panel .rhyme-panel-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.rhyme-search-panel .rhyme-panel-header h3{margin:0;font-size:16px}
+.rhyme-search-panel .rhyme-mode-wrap{display:flex;gap:8px;align-items:center}
+.rhyme-search-panel .rhyme-mode-select{width:auto;padding:6px 10px;font-size:13px;border-radius:6px;background:var(--card);color:var(--text-plain);border:1px solid var(--border);margin:0}
+.rhyme-search-panel .rhyme-close-btn{background:var(--soft);color:var(--text-plain);width:32px;height:32px;padding:0;border-radius:50%;font-size:18px;line-height:1;margin:0;display:flex;align-items:center;justify-content:center}
 
-/* === Секция вставки из буфера обмена === */
-.paste-section{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  margin-top:10px;
-  padding:12px;
-  border-top:1px dashed var(--border);
-}
-.paste-area{
-  display:flex;
-  gap:10px;
-  width:100%;
-  max-width:500px;
-}
-.paste-area textarea{
-  flex:1;
-  padding:10px;
-  border:2px solid var(--border);
-  border-radius:8px;
+/* Поле стиха — sticky сверху, всегда видно */
+.rhyme-text-panel{
+  position:sticky;
+  top:10px;
+  z-index:70;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
   background:var(--card);
-  color:var(--text);
-  font-size:14px;
-  resize:vertical;
-  min-height:80px;
-  font-family:inherit;
-  margin:0;
 }
-.paste-area textarea:focus{
-  outline:none;
-  border-color:var(--accent);
+.rhyme-text-panel textarea{
+  max-height:35vh;
+  min-height:120px;
+  background:#fff;
+  color:var(--text-plain);
 }
-.paste-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.paste-actions button{
-  padding:8px 16px;
-  font-size:13px;
-  width:auto;
-  margin:0;
-}
-.paste-status{
-  font-size:13px;
-  opacity:.7;
-  margin-top:4px;
-  text-align:center;
-}
+body.night .rhyme-text-panel textarea{background:rgba(0,0,0,.20);}
 
-@media (max-width:768px){
-  .controls{flex-direction:column}
-  .results-header{flex-direction:column;align-items:flex-start}
-  .pagination-controls{flex-direction:column}
-  .page-size-selector{margin-left:0}
-  .paste-area{flex-direction:column}
-  .paste-area textarea{min-height:100px}
-}
+/* Панель подсказок — режимы */
+.rhyme-search-panel.mode-sticky{position:sticky;top:calc(35vh + 30px);z-index:60;max-height:30vh;overflow-y:auto}
+.rhyme-search-panel.mode-inline{position:static;max-height:none;overflow:visible}
+.rhyme-search-panel.mode-bottom{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:960px;z-index:999;max-height:40vh;overflow-y:auto}
+.rhyme-search-panel.mode-overlay{position:fixed;right:20px;bottom:20px;width:440px;max-width:calc(100vw - 40px);max-height:50vh;overflow-y:auto;z-index:999}
+.rhyme-search-panel.hidden{display:none!important}
+#rhymeShowBtn{display:none;margin-bottom:8px}
+.rhyme-options-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;font-size:13px}
+.rhyme-options-row label{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.rhyme-options-row input[type="number"]{width:70px;padding:4px;border-radius:4px;border:1px solid var(--border);background:var(--card);color:var(--text-plain);font-weight:600;text-align:center}
+.rhyme-options-row select{width:auto;padding:5px 8px;border-radius:6px;font-size:13px;border:1px solid var(--border);background:var(--card);color:var(--text-plain);margin:0}
+.rhyme-source-badge{font-size:12px;padding:2px 8px;border-radius:10px;background:var(--accent);color:white;font-weight:600}
+.rhyme-status-banner{padding:10px 12px;border-radius:8px;margin-bottom:12px;background:var(--soft);border-left:4px solid var(--accent)}
+.rhyme-status-banner.complete{border-left-color:var(--success);background:rgba(72,187,120,.12)}
+.rhyme-status-banner.incomplete{border-left-color:#f39c12;background:rgba(243,156,18,.12)}
+.rhyme-show-all{font-weight:700;background:var(--accent);color:white;border:none}
+@media(max-width:768px){.controls{flex-direction:column}.results-header{flex-direction:column;align-items:flex-start}.pagination-controls{flex-direction:column}.page-size-selector{margin-left:0}.paste-area{flex-direction:column}.rhyme-search-panel.mode-overlay{width:calc(100vw - 24px);right:12px;left:12px;bottom:12px}.rhyme-search-panel.mode-bottom{width:calc(100vw - 12px);bottom:6px}.rhyme-search-panel.mode-sticky{top:calc(40vh + 30px)}.rhyme-text-panel textarea{max-height:40vh}}
 </style>
 </head>
 <body>
 <div class="container">
-
   <div class="app-nav">
     <button id="navVechnoe" class="active" onclick="switchApp('vechnoe')">🔮 Связь с ИстинаВсевышним</button>
     <button id="navCombinator" onclick="switchApp('combinator')">🔧 Комбинатор Слов</button>
+    <button id="navRhymes" onclick="switchApp('rhymes')">🎭 Рифмы</button>
   </div>
 
-  <!-- ============ ПРИЛОЖЕНИЕ 1 ============ -->
+  <!-- VECHNOE -->
   <div id="appVechnoe">
     <div class="top-controls">
-      <label><input type="checkbox" id="anagramModeSwitch"> Анаграмма включена</label>
-      <label><input type="checkbox" id="themeSwitch"> Ночной режим</label>
+      <label><input type="checkbox" id="anagramModeSwitch"> Анаграмма генетики включена выбирающими сердце</label>
+      <label><input type="checkbox" id="themeSwitch"> Ибо Ночной режим</label>
+    </div>
+    <h1 class="gradient-text">Прямой и лучший способ связи с ИстинаВсевышним, исполняющим желания в согласии с алгоритмом меры гармонии и гармониией меры алгоритма, силой невовлечённого наблюдателя, как отражение желания жизни желать жить, точно в соответствии с лучшим вариантом будущего.</h1>
+    <p class="hint">О Тот Господь, введи русский текст. Для добавления слов в словарь ударений используй символ ударе́ния: све́т.</p>
+    <div class="info-panel">
+      <strong>Сумма:</strong> <span id="currentSum">0</span> | <strong>Внимание Добавь:</strong> <span id="neededRemainder">0</span>
+      <div class="small-note" id="poolInfo"></div>
+      <div style="margin-top:8px;"><label style="font-size:14px;">Показывать подсказок: <input type="number" id="suggestionLimit" value="60" min="1" style="width:70px;padding:4px;border-radius:4px;border:1px solid var(--border);background:var(--card);color:var(--text-plain);"></label></div>
+      <div style="margin-top:6px;"><label style="font-size:14px;">Главное значение (основа): <input type="number" id="baseValueInput" value="37" min="2" style="width:70px;padding:4px;border-radius:4px;border:1px solid var(--border);background:var(--card);color:var(--text-plain);"></label></div>
+      <div style="margin-top:6px;"><label style="font-size:14px;">Порядок подсказок: <select id="suggestionOrder" style="width:auto;padding:4px;border-radius:4px;border:1px solid var(--border);background:var(--card);color:var(--text-plain);font-size:14px;"><option value="default">По порядку словаря</option><option value="random">Случайный</option><option value="alpha-az">А → Я</option><option value="alpha-za">Я → А</option></select></label></div>
+    </div>
+    <div class="info-panel"><strong>Режим подсчёта:</strong><label style="margin-left:10px"><input type="radio" name="calcMode" value="all" checked> весь текст</label><label style="margin-left:10px"><input type="radio" name="calcMode" value="line"> текущая строка</label></div>
+    <div id="suggestions" class="suggestions"></div>
+    <textarea id="inputText" placeholder="Вводи о Всевышний свой шедевр сознания"></textarea>
+    <button class="btn-undo" onclick="undoLastChange()" id="undoBtn">↩️ Отменить последнее изменение</button>
+    <button onclick="calculateAll()">Рассчитать гармонию понимания и анаграммы</button>
+    <button class="btn-secondary" onclick="exportDatabase()">Экспорт базы слов</button>
+    <button class="btn-secondary" onclick="exportSuggestionsTxt()">Экспорт подсказок в TXT</button>
+    <button class="btn-secondary" onclick="importDatabase()">Импорт базы</button>
+    <button class="btn-danger" onclick="clearDatabase()">Тихо очистить словарь</button>
+    <div class="panel"><h3>Сердце анаграммы</h3><button class="btn-copy" onclick="findAnagrams()" id="findAnagramsBtn">Найти анаграммы Бога</button><button class="btn-copy" onclick="copyAnagrams()" id="copyAnagramsBtn" disabled>Скопировать с числами</button><button class="btn-copy" onclick="exportAnagramsTxt()" id="exportAnagramsBtn" disabled>📥 Экспорт в TXT</button><div id="anagramOutput" style="margin-top:10px;min-height:60px;max-height:260px;overflow-y:auto;background:var(--soft);padding:10px;border-radius:8px"></div></div>
+    <div class="panel"><h3>Стихотворный ритм</h3><select id="meterType"><option value="">Без анализа</option><option value="iamb">Ямб</option><option value="trochee">Хорей</option><option value="dactyl">Дактиль</option><option value="amphibrach">Амфибрахий</option><option value="anapest">Анапест</option><option value="monosyllabic">Односложное</option></select><div id="meterAnalysis" style="margin-top:10px;min-height:60px;max-height:260px;overflow-y:auto;background:var(--soft);padding:10px;border-radius:8px"></div></div>
+    <table id="results"><thead><tr><th>Строка</th><th>Сумма</th><th>Добавить</th><th>Итог</th></tr></thead><tbody></tbody></table>
+    <div class="footer">Стволовая регенерация свет<br>Абсолютное тотальное возвращение к совершенной форме человека Христа<br>Раскрытие высшего потенциала богочеловека на Земле. ОМ</div>
+  </div>
+
+  <!-- COMBINATOR -->
+  <div id="appCombinator">
+    <div class="top-controls"><label><input type="checkbox" id="combThemeSwitch"> 🌙 Ночной режим</label></div>
+    <h1 class="gradient-text">🔧 Комбинатор Слов</h1>
+    <div class="panel upload-section" id="dropZone">
+      <input type="file" id="fileInput" accept=".txt">
+      <label for="fileInput" class="upload-btn">📂 Выбрать файл TXT</label>
+      <p class="file-info">Или перетащите файл сюда</p>
+      <p class="file-info" style="font-size:12px;">Формат: слово (число) или слово число</p>
+      <div id="fileName" style="margin-top:10px;font-weight:bold;color:var(--accent);"></div>
+      <div class="paste-section">
+        <div class="paste-area"><textarea id="pasteInput" placeholder="Вставьте текст: слово (число) или слово число..."></textarea></div>
+        <div class="paste-actions"><button class="btn-primary" onclick="pasteFromClipboard()">📋 Вставить из буфера</button><button class="btn-secondary" onclick="processPastedText()">⚙ Обработать</button></div>
+        <div class="paste-status" id="pasteStatus"></div>
+      </div>
+    </div>
+    <div class="warning" id="warningBox">⚠️ <span id="warningText"></span></div>
+    <div class="chunk-info" id="chunkInfo">📊 Обработка большого набора: разбито на части</div>
+    <div class="panel" id="statsSection" style="display:none;"><div class="stats">
+      <div class="stat-card"><div class="stat-value" id="totalWords">0</div><div class="stat-label">Всего слов</div></div>
+      <div class="stat-card"><div class="stat-value" id="targetSum">37</div><div class="stat-label">Целевая сумма</div></div>
+      <div class="stat-card"><div class="stat-value" id="combinationsFound">0</div><div class="stat-label">Найдено комбинаций</div></div>
+      <div class="stat-card"><div class="stat-value" id="wordCountLimit">∞</div><div class="stat-label">Слов в комбинации</div></div>
+    </div></div>
+    <div class="panel" id="controlsSection" style="display:none;">
+      <div class="controls"><div class="control-group"><label for="targetValue">🎆 Целевая сумма:</label><input type="number" class="comb-input" id="targetValue" value="37" min="1"></div>
+        <div class="preset-buttons"><button class="preset-btn" onclick="setTarget(37,event)">37</button><button class="preset-btn" onclick="setTarget(55,event)">55</button><button class="preset-btn" onclick="setTarget(74,event)">74</button><button class="preset-btn" onclick="setTarget(111,event)">111</button></div></div>
+      <div style="text-align:center;margin-top:15px;"><label style="display:block;margin-bottom:10px;">🎴 Количество слов:</label>
+        <div class="word-count-buttons"><button class="word-count-btn active" onclick="setWordCount(0)" id="wc-0">Любое</button><button class="word-count-btn" onclick="setWordCount(1)" id="wc-1">1</button><button class="word-count-btn" onclick="setWordCount(2)" id="wc-2">2</button><button class="word-count-btn" onclick="setWordCount(3)" id="wc-3">3</button></div></div>
+      <button class="btn-primary" id="calculateBtn" onclick="findCombinations()" disabled style="margin-top:15px;width:100%;">🔎 Найти комбинации</button>
+    </div>
+    <div class="progress-container" id="progressContainer"><div class="progress-bar"><div class="progress-fill" id="progressFill">0%</div></div><div class="progress-info">Обработано: <span id="processedCount">0</span> / <span id="totalCount">0</span></div></div>
+    <div class="results" id="resultsSection"><div class="empty-state"><div class="empty-state-icon">🗂</div><h3>Загрузите файл TXT</h3><p>Загрузите файл со списком слов и чисел</p></div></div>
+  </div>
+
+  <!-- RHYMES -->
+  <div id="appRhymes">
+    <div class="top-controls"><label><input type="checkbox" id="rhymeThemeSwitch"> 🌙 Ночной режим</label></div>
+    <h1 class="gradient-text">🎭 Рифмы по логике гармонии</h1>
+    <div class="info-panel">
+      <div class="rhyme-input-row">
+        <label><strong>Сумма строки:</strong> <span id="rhymeSum">0</span></label>
+        <label><strong>До <span id="rhymeBaseLabel">37</span>:</strong> <span id="rhymeNeed">0</span></label>
+        <label>Основа: <input type="number" id="rhymeBaseValue" value="37" min="2"></label>
+      </div>
+      <div class="small-note" id="rhymeDbInfo"></div>
+    </div>
+    <div class="panel">
+      <h3>📥 Загрузка списка рифм</h3>
+      <p class="hint">Вставь список слов с ударениями. Все слова одного списка — рифмы друг другу. Слова в скобках игнорируются.</p>
+      <textarea id="rhymeInput" placeholder="любо́вь&#10;вно́вь&#10;морко́вь..."></textarea>
+      <button class="btn-primary" onclick="loadRhymeList()">📥 Загрузить рифмы</button>
+      <button class="btn-secondary" onclick="uploadRhymeFile()">📂 Из файла TXT</button>
+      <div id="rhymeLoadStatus" class="small-note" style="margin-top:10px;"></div>
     </div>
 
-    <h1 class="gradient-text">Прямой и лучший способ связи с ИстинаВсевышним, исполняющим желания в согласии с алгоритмом меры гармонии, силой невовлечённого наблюдателя.</h1>
+    <!-- ПОЛЕ СТИХА — sticky сверху -->
+    <div class="panel rhyme-text-panel">
+      <h3>✍️ Твой стих</h3>
+      <textarea id="rhymeText" placeholder="Пиши здесь. Сумма каждой строки должна дойти до 37 (или твоей основы) — тогда появятся рифмы для следующей строки."></textarea>
+    </div>
 
-    <p class="hint">Введи русский текст. Для ударений используй символ: све́т.</p>
-
-    <div class="panel">
-      <strong>Сумма:</strong> <span id="currentSum">0</span> |
-      <strong>Добавь:</strong> <span id="neededRemainder">0</span>
-      <div class="small-note" id="poolInfo"></div>
-      <div style="margin-top:8px;">
-        <label style="font-size:14px;">Показывать подсказок:
-          <input type="number" id="suggestionLimit" value="60" min="1" style="width:70px;padding:4px;border-radius:4px;border:1px solid var(--border);background:var(--card);color:var(--text);">
-        </label>
+    <!-- ПАНЕЛЬ ПОДСКАЗОК — под полем -->
+    <div class="panel rhyme-search-panel mode-inline" id="rhymeSearchPanel">
+      <div class="rhyme-panel-header">
+        <h3>🔍 Подсказки</h3>
+        <div class="rhyme-mode-wrap">
+          <select id="rhymeDisplayMode" class="rhyme-mode-select" onchange="changeRhymeDisplayMode(this.value)">
+            <option value="inline">📄 Блок</option>
+            <option value="sticky">📌 Прилипает под полем</option>
+            <option value="bottom">⬇️ Снизу</option>
+            <option value="overlay">🪟 Справа</option>
+          </select>
+          <button class="rhyme-close-btn" onclick="hideRhymePanel()" title="Скрыть подсказки">×</button>
+        </div>
       </div>
-      <div style="margin-top:6px;">
-        <label style="font-size:14px;">Основа:
-          <input type="number" id="baseValueInput" value="37" min="2" style="width:70px;padding:4px;border-radius:4px;border:1px solid var(--border);background:var(--card);color:var(--text);">
+      <div class="rhyme-options-row">
+        <label>Показывать:
+          <input type="number" id="rhymeSuggestionLimit" value="60" min="1" step="1">
         </label>
-      </div>
-      <div style="margin-top:6px;">
-        <label style="font-size:14px;">Порядок подсказок:
-          <select id="suggestionOrder" style="width:auto;padding:4px;border-radius:4px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;">
+        <label>Порядок:
+          <select id="rhymeSuggestionOrder">
             <option value="default">По порядку словаря</option>
             <option value="random">Случайный</option>
             <option value="alpha-az">А → Я</option>
@@ -242,1260 +287,218 @@ input[type="number"].comb-input{width:100px;padding:10px;border:2px solid var(--
           </select>
         </label>
       </div>
-    </div>
-
-    <div class="panel">
-      <strong>Режим подсчёта:</strong>
-      <label style="margin-left:10px"><input type="radio" name="calcMode" value="all" checked> весь текст</label>
-      <label style="margin-left:10px"><input type="radio" name="calcMode" value="line"> текущая строка</label>
-    </div>
-
-    <div id="suggestions" class="suggestions"></div>
-    <textarea id="inputText" placeholder="Вводи свой текст..."></textarea>
-
-    <button onclick="calculateAll()">Рассчитать гармонию</button>
-    <button class="btn-secondary" onclick="exportDatabase()">Экспорт базы</button>
-    <button class="btn-secondary" onclick="exportSuggestionsTxt()">Экспорт подсказок</button>
-    <button class="btn-secondary" onclick="importDatabase()">Импорт базы</button>
-    <button class="btn-danger" onclick="clearDatabase()">Очистить словарь</button>
-
-    <div class="panel">
-      <h3>Сердце анаграммы</h3>
-      <button class="btn-copy" onclick="findAnagrams()">Найти анаграммы</button>
-      <button class="btn-copy" onclick="copyAnagrams()" id="copyAnagramsBtn" disabled>Скопировать с числами</button>
-      <div id="anagramOutput" style="margin-top:10px;min-height:60px;max-height:260px;overflow-y:auto;background:var(--soft);padding:10px;border-radius:8px"></div>
-    </div>
-
-    <div class="panel">
-      <h3>Стихотворный ритм</h3>
-      <select id="meterType">
-        <option value="">Без анализа</option>
-        <option value="iamb">Ямб</option>
-        <option value="trochee">Хорей</option>
-        <option value="dactyl">Дактиль</option>
-        <option value="amphibrach">Амфибрахий</option>
-        <option value="anapest">Анапест</option>
-        <option value="monosyllabic">Односложное</option>
-      </select>
-      <div id="meterAnalysis" style="margin-top:10px;min-height:60px;background:var(--soft);padding:10px;border-radius:8px"></div>
-    </div>
-
-    <table id="results">
-      <thead><tr><th>Строка</th><th>Сумма</th><th>Добавить</th><th>Итог</th></tr></thead>
-      <tbody></tbody>
-    </table>
-
-    <div class="footer">
-      Стволовая регенерация свет<br>
-      Абсолютное возвращение к совершенной форме человека Христа<br>
-      Раскрытие высшего потенциала богочеловека. ОМ
-    </div>
-  </div>
-
-  <!-- ============ ПРИЛОЖЕНИЕ 2 ============ -->
-  <div id="appCombinator">
-    <div class="top-controls">
-      <label><input type="checkbox" id="combThemeSwitch"> Ночной режим</label>
-    </div>
-    <h1 class="gradient-text">🔧 Комбинатор Слов</h1>
-
-    <div class="panel upload-section" id="dropZone">
-      <input type="file" id="fileInput" accept=".txt">
-      <label for="fileInput" class="upload-btn">📂 Выбрать файл TXT</label>
-      <p class="file-info">или перетащите файл сюда</p>
-      <p class="file-info" style="font-size:12px;">Формат: слово (число) или слово число</p>
-      <div id="fileName" style="margin-top:10px;font-weight:bold;color:var(--accent);"></div>
-
-      <!-- Секция вставки из буфера -->
-      <div class="paste-section">
-        <div class="paste-area">
-          <textarea id="pasteInput" placeholder="Вставьте текст в формате: слово (число) или слово число, каждое на новой строке..."></textarea>
-        </div>
-        <div class="paste-actions">
-          <button class="btn-primary" onclick="pasteFromClipboard()">📋 Вставить из буфера</button>
-          <button class="btn-secondary" onclick="processPastedText()">⚙ Обработать вставленный текст</button>
-        </div>
-        <div class="paste-status" id="pasteStatus">Нажмите "Вставить из буфера", чтобы вставить текст, затем "Обработать"</div>
+      <input type="text" id="rhymeSearch" class="rhyme-search-input" placeholder="Ручной поиск рифм: введи слово">
+      <div id="rhymeOutput" style="min-height:100px;">
+        <p class="hint">Начни писать стих. Пока строка не набрала кратность — покажу подсказки из словаря. Когда наберёт — покажу рифмы.</p>
       </div>
     </div>
 
-    <div class="warning" id="warningBox">⚠️ <span id="warningText"></span></div>
-    <div class="chunk-info" id="chunkInfo">📊 Обработка большого набора: разбито на части</div>
+    <button id="rhymeShowBtn" class="btn-secondary" onclick="showRhymePanel()">🔍 Показать подсказки</button>
 
-    <div class="panel" id="statsSection" style="display:none;">
-      <div class="stats">
-        <div class="stat-card"><div class="stat-value" id="totalWords">0</div><div class="stat-label">Всего слов</div></div>
-        <div class="stat-card"><div class="stat-value" id="targetSum">37</div><div class="stat-label">Целевая сумма</div></div>
-        <div class="stat-card"><div class="stat-value" id="combinationsFound">0</div><div class="stat-label">Найдено</div></div>
-        <div class="stat-card"><div class="stat-value" id="wordCountLimit">∞</div><div class="stat-label">Слов в комб.</div></div>
-      </div>
-    </div>
-
-    <div class="panel" id="controlsSection" style="display:none;">
-      <div class="controls">
-        <div class="control-group">
-          <label for="targetValue">🎆 Целевая сумма:</label>
-          <input type="number" class="comb-input" id="targetValue" value="37" min="1">
-        </div>
-        <div class="preset-buttons">
-          <button class="preset-btn" onclick="setTarget(37, event)">37</button>
-          <button class="preset-btn" onclick="setTarget(55, event)">55</button>
-          <button class="preset-btn" onclick="setTarget(74, event)">74</button>
-          <button class="preset-btn" onclick="setTarget(111, event)">111</button>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:15px;">
-        <label style="display:block;margin-bottom:10px;">🎴 Слов в комбинации:</label>
-        <div class="word-count-buttons">
-          <button class="word-count-btn active" onclick="setWordCount(0)" id="wc-0">Любое</button>
-          <button class="word-count-btn" onclick="setWordCount(1)" id="wc-1">1</button>
-          <button class="word-count-btn" onclick="setWordCount(2)" id="wc-2">2</button>
-          <button class="word-count-btn" onclick="setWordCount(3)" id="wc-3">3</button>
-        </div>
-      </div>
-      <button class="btn-primary" id="calculateBtn" onclick="findCombinations()" disabled style="margin-top:15px;width:100%;">🔎 Найти комбинации</button>
-    </div>
-
-    <div class="progress-container" id="progressContainer">
-      <div class="progress-bar"><div class="progress-fill" id="progressFill">0%</div></div>
-      <div class="progress-info">Обработано: <span id="processedCount">0</span> / <span id="totalCount">0</span></div>
-    </div>
-
-    <div class="results" id="resultsSection">
-      <div class="empty-state">
-        <div class="empty-state-icon">🗂</div>
-        <h3>Загрузите файл TXT</h3>
-        <p>со списком слов и чисел</p>
-        <p style="margin-top:10px;font-size:13px;">Или вставьте текст из буфера обмена выше</p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- Модальное окно -->
-<div class="modal-overlay" id="valueModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title" id="modalTitle">Выберите комбинацию</div>
-      <button class="modal-close" onclick="closeValueModal()">&times;</button>
-    </div>
-    <div class="range-info">Диапазон: <span id="minValue">1</span> - <span id="maxValue">36</span></div>
-    <div class="value-selector">
-      <label>🔍 Начать с:</label>
-      <input type="number" class="value-input" id="startValueInput" value="18" min="1">
-      <div class="quick-values" id="quickValues"></div>
-    </div>
-    <div class="combinations-list" id="combinationsList"></div>
-    <div class="modal-footer">
-      <button class="btn-secondary btn-modal" onclick="closeValueModal()">Отмена</button>
-      <button class="btn-primary btn-modal" onclick="applySelectedCombination()">Применить</button>
-    </div>
+    <button class="btn-secondary" onclick="exportRhymeDatabase()">💾 Экспорт словаря рифм</button>
+    <button class="btn-secondary" onclick="importRhymeDatabase()">📂 Импорт словаря рифм</button>
+    <button class="btn-danger" onclick="clearRhymeDatabase()">🗑 Очистить словарь рифм</button>
   </div>
 </div>
+
+<div class="modal-overlay" id="valueModal"><div class="modal-content">
+  <div class="modal-header"><div class="modal-title" id="modalTitle">Выбор комбинации</div><button class="modal-close" onclick="closeValueModal()">&times;</button></div>
+  <div class="range-info">Диапазон: <span id="minValue">1</span> - <span id="maxValue">36</span></div>
+  <div class="value-selector"><label>🔍 Начать с:</label><input type="number" class="value-input" id="startValueInput" value="18" min="1"><div class="quick-values" id="quickValues"></div></div>
+  <div class="combinations-list" id="combinationsList"></div>
+  <div class="modal-footer"><button class="btn-secondary btn-modal" onclick="closeValueModal()">Отмена</button><button class="btn-primary btn-modal" onclick="applySelectedCombination()">Применить</button></div>
+</div></div>
 
 <script>
 "use strict";
+const letter_values = {'А':2,'Б':3,'В':4,'Г':8,'Д':5,'Е':6,'Ё':7,'Ж':9,'З':3,'И':1,'Й':2,'К':4,'Л':5,'М':3,'Н':7,'О':6,'П':2,'Р':9,'С':1,'Т':2,'У':8,'Ф':4,'Х':5,'Ц':6,'Ч':8,'Ш':9,'Щ':8,'Ъ':7,'Ы':5,'Ь':6,'Э':1,'Ю':3,'Я':4};
 
-/* ============================================================
-   ПЕРЕКЛЮЧЕНИЕ ПРИЛОЖЕНИЙ
-   ============================================================ */
 function switchApp(app){
-  try {
-    const isV = app === 'vechnoe';
-    document.getElementById('appVechnoe').style.display = isV ? 'block' : 'none';
-    document.getElementById('appCombinator').style.display = isV ? 'none' : 'block';
-    document.getElementById('navVechnoe').classList.toggle('active', isV);
-    document.getElementById('navCombinator').classList.toggle('active', !isV);
-    try { localStorage.setItem('active_app', app); } catch(e){}
-  } catch(e){ console.error('switchApp:', e); }
+  const apps=['vechnoe','combinator','rhymes'];
+  const ids={vechnoe:'appVechnoe',combinator:'appCombinator',rhymes:'appRhymes'};
+  const navIds={vechnoe:'navVechnoe',combinator:'navCombinator',rhymes:'navRhymes'};
+  for(const a of apps){document.getElementById(ids[a]).style.display=(a===app)?'block':'none';document.getElementById(navIds[a]).classList.toggle('active',a===app);}
+  try{localStorage.setItem('active_app',app);}catch(e){}
+  if(app==='rhymes'&&typeof updateRhymeSuggestions==='function'){updateRhymeDbInfo();updateRhymeSuggestions();}
 }
 
-/* ============================================================
-   ПРИЛОЖЕНИЕ 1: VECHNOE
-   ============================================================ */
-const letter_values = {
-  'А':2,'Б':3,'В':4,'Г':8,'Д':5,'Е':6,'Ё':7,'Ж':9,'З':3,
-  'И':1,'Й':2,'К':4,'Л':5,'М':3,'Н':7,'О':6,'П':2,'Р':9,
-  'С':1,'Т':2,'У':8,'Ф':4,'Х':5,'Ц':6,'Ч':8,'Ш':9,'Щ':8,
-  'Ъ':7,'Ы':5,'Ь':6,'Э':1,'Ю':3,'Я':4
-};
+/* VECHNOE */
+let wordDatabase={},anagramPoolWords=[],anagramPoolSource="",suggestionOrder="default",baseValue=37,remainderIndex=null,valueIndex=null;
+function getEntryValue(e){if(e==null)return 0;if(typeof e==='number')return e;if(typeof e==='object'&&Number.isFinite(e.value))return e.value;return 0;}
+function getEntryMeter(e){if(e&&typeof e==='object'&&e.meter)return e.meter;return null;}
+function calculateWordValueRussian(w){return [...w.toUpperCase()].reduce((s,c)=>s+(letter_values[c]||0),0);}
+function calculateWordValue(w){const k=(w||"").toLowerCase();const e=wordDatabase[k];if(e!==undefined)return getEntryValue(e);return calculateWordValueRussian(w);}
+function saveDatabase(){try{localStorage.setItem('wordDatabase',JSON.stringify(wordDatabase));}catch(e){}}
+function loadDatabase(){try{const s=localStorage.getItem('wordDatabase');if(s){wordDatabase=JSON.parse(s)||{};return;}}catch(e){wordDatabase={};}
+  const fb=["я","есть","не","знаю","кто","зачем","должен","знать","любовь","тишина","радость","свет","душа","бог","смысл","свобода","выбор","сила","тело","путь","мысль","воля","сердце","разум","дух","покой"];
+  fb.forEach(w=>wordDatabase[w]=calculateWordValueRussian(w));saveDatabase();}
+function countVowels(w){return (w.toLowerCase().match(/[аеёиоуыэюя]/g)||[]).length;}
+function getStressPosition(w){const c=Array.from(w.normalize('NFD'));const r=/[аеёиоуыэюя]/i;const idx=c.findIndex(x=>x.charCodeAt(0)===0x0301);if(idx===-1)return null;let n=0;for(let i=0;i<idx;i++){if(r.test(c[i]))n++;}return n>0?n:null;}
+function determineMeter(s,syl){if(!syl||syl<=0)return"complex";if(syl===1)return"monosyllabic";if(syl===2)return s===1?"trochee":"iamb";if(syl===3){if(s===1)return"dactyl";if(s===2)return"amphibrach";if(s===3)return"anapest";}return"complex";}
+function addWordsWithStressFromInput(t){const ws=t.match(/[А-Яа-яЁё\u0301]+/g)||[];let a=0;for(const w of ws){if(!w.normalize('NFD').includes('\u0301'))continue;const n=w.normalize('NFC').replace(/\u0301/g,'');const k=n.toLowerCase();if(k.length<2)continue;if(wordDatabase[k]&&typeof wordDatabase[k]==='object')continue;const sp=getStressPosition(w);const sy=countVowels(n);if(!sp||!sy)continue;wordDatabase[k]={value:calculateWordValueRussian(n),meter:determineMeter(sp,sy),stress:sp,syllables:sy};a++;}if(a>0)saveDatabase();return a;}
+function getCurrentLine(ta){const t=ta.value,p=ta.selectionStart;const s=t.lastIndexOf('\n',p-1)+1;const e=t.indexOf('\n',p);return t.slice(s,e===-1?t.length:e);}
+function getCalcTargetText(){const ta=document.getElementById('inputText');const m=document.querySelector("input[name='calcMode']:checked").value;return m==='line'?getCurrentLine(ta):ta.value;}
+function countLetters(s){const c=(s||"").toLowerCase().replace(/[^а-яё]/g,'');const r={};for(let ch of c)r[ch]=(r[ch]||0)+1;return r;}
+function canForm(w,pool){const wc=countLetters(w);for(let c in wc){if((pool[c]||0)<wc[c])return false;}return true;}
+function findAnagrams(){const ph=document.getElementById('inputText').value.trim();if(!ph){alert('Введите фразу');return;}addWordsWithStressFromInput(ph);const pool=countLetters(ph);const wbm={'monosyllabic':[],'iamb':[],'trochee':[],'dactyl':[],'amphibrach':[],'anapest':[],'complex':[]};for(const w of Object.keys(wordDatabase)){if(w.length>=2&&canForm(w,pool)){const e=wordDatabase[w];const m=getEntryMeter(e)||'complex';if(wbm.hasOwnProperty(m))wbm[m].push(w);else wbm['complex'].push(w);}}anagramPoolWords=[];for(const m in wbm)anagramPoolWords=anagramPoolWords.concat(wbm[m]);anagramPoolSource=ph;const out=document.getElementById('anagramOutput');out.innerHTML='';const mo=['monosyllabic','iamb','trochee','dactyl','amphibrach','anapest','complex'];const mn={'monosyllabic':'Односложные','iamb':'Ямб','trochee':'Хорей','dactyl':'Дактиль','amphibrach':'Амфибрахий','anapest':'Анапест','complex':'Сложный'};let tot=0;for(const m of mo){const wi=wbm[m];if(wi&&wi.length>0){tot+=wi.length;const h=document.createElement('div');h.className='suggestion-header';h.textContent=`${mn[m]||m} (${wi.length})`;out.appendChild(h);const gc=document.createElement('div');gc.style.padding='5px 10px';wi.forEach(w=>{const v=getEntryValue(wordDatabase[w]);const sp=document.createElement('span');sp.className='word-tag';sp.textContent=`${w} (${v})`;gc.appendChild(sp);});out.appendChild(gc);}}const bc=document.getElementById('copyAnagramsBtn');const be=document.getElementById('exportAnagramsBtn');if(tot===0){out.innerHTML='<p>Нет подходящих слов.</p>';bc.disabled=true;be.disabled=true;}else{bc.disabled=false;be.disabled=false;}updateInfoAndSuggestions();}
+function copyAnagrams(){const ph=document.getElementById('inputText').value.trim();if(!ph){alert('Сначала нажми «Найти анаграммы»');return;}const pool=countLetters(ph);const found=[];for(const w of Object.keys(wordDatabase)){if(w.length>=2&&canForm(w,pool))found.push(`${w} (${getEntryValue(wordDatabase[w])})`);}if(!found.length){alert('Нечего копировать.');return;}const txt=found.join('\n');function fb(s){try{const t=document.createElement('textarea');t.value=s;t.setAttribute('readonly','');t.style.position='fixed';t.style.top='-1000px';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');document.body.removeChild(t);return ok;}catch(e){return false;}}if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(txt).then(()=>alert('Скопировано!')).catch(()=>{if(fb(txt))alert('Скопировано!');else alert('Ошибка.');});}else{if(fb(txt))alert('Скопировано!');else alert('Ошибка.');}}
+function exportAnagramsTxt(){const ph=document.getElementById('inputText').value.trim();if(!ph){alert('Сначала нажми «Найти анаграммы»');return;}const pool=countLetters(ph);const found=[];for(const w of Object.keys(wordDatabase)){if(w.length>=2&&canForm(w,pool))found.push(`${w} (${getEntryValue(wordDatabase[w])})`);}if(!found.length){alert('Нечего.');return;}const hdr=`Анаграммы фразы: «${ph}»\nВсего: ${found.length}\n${'='.repeat(50)}\n\n`;const blob=new Blob([hdr+found.join('\n')],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='anagrams.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}
+function fisherYatesShuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function applySuggestionOrder(l){switch(suggestionOrder){case'random':return fisherYatesShuffle(l);case'alpha-az':return [...l].sort((a,b)=>a.w.localeCompare(b.w,'ru'));case'alpha-za':return [...l].sort((a,b)=>b.w.localeCompare(a.w,'ru'));default:return l;}}
+function getSuggestionCandidateWords(){const a=document.getElementById('anagramModeSwitch').checked;if(!a)return Object.keys(wordDatabase);if(!anagramPoolWords||anagramPoolWords.length===0)return[];return anagramPoolWords;}
+function rebuildIndexes(sm=""){const idx=Array.from({length:baseValue},()=>[]);const vI=Object.create(null);const cand=getSuggestionCandidateWords();for(const w of cand){if(!w||w.length<2)continue;const e=wordDatabase[w];if(e===undefined)continue;if(sm){const m=getEntryMeter(e);if(!m)continue;if(sm==="monosyllabic"){if(m!=="monosyllabic")continue;}else{if(m!==sm)continue;}}const v=getEntryValue(e);const r=((v%baseValue)+baseValue)%baseValue;idx[r].push({w,val:v});const k=String(v);if(!vI[k])vI[k]=[];vI[k].push({w,val:v});}remainderIndex=idx;valueIndex=vI;}
+function updatePoolInfoLine(){const el=document.getElementById('poolInfo');const a=document.getElementById('anagramModeSwitch').checked;const m=document.getElementById('meterType').value;if(!a){el.textContent=m?`Подсказки из словаря | Ритм: ${m} | Основа: ${baseValue}`:`Подсказки из словаря | Основа: ${baseValue}`;return;}if(!anagramPoolWords||anagramPoolWords.length===0){el.textContent="Анаграмма включена: нажми «Найти анаграммы».";return;}const s=(anagramPoolSource||"").replace(/\s+/g,' ').trim();const sh=s.length>60?s.slice(0,60)+"…":s;el.textContent=m?`Из анаграмм | Ритм: ${m} | Основа: ${baseValue} | «${sh}»`:`Из анаграмм | Основа: ${baseValue} | «${sh}»`;}
+function updateInfoAndSuggestions(){const ta=document.getElementById('inputText');const sd=document.getElementById('suggestions');addWordsWithStressFromInput(ta.value);const sm=document.getElementById('meterType').value;rebuildIndexes(sm);updatePoolInfoLine();const v=getCalcTargetText();const rw=v.match(/[А-Яа-яЁё]+/g)||[];const ts=rw.reduce((s,w)=>s+calculateWordValue(w),0);const rem=((ts%baseValue)+baseValue)%baseValue;let nxt=(ts===0)?baseValue:(ts+(baseValue-rem));if(rem===0&&ts>0)nxt=ts+baseValue;const tg=[nxt,nxt+baseValue,nxt+2*baseValue];const nd=tg.map(t=>t-ts).filter(n=>n>0);document.getElementById('currentSum').textContent=ts;document.getElementById('neededRemainder').textContent=nd[0]||0;sd.innerHTML='';sd.style.display='none';const am=document.getElementById('anagramModeSwitch').checked;if(am&&(!anagramPoolWords||anagramPoolWords.length===0)){sd.style.display='block';const h=document.createElement('div');h.className='suggestion-header';h.textContent='Анаграмма включена';sd.appendChild(h);const sh=document.createElement('div');sh.className='suggestion-subheader';sh.textContent='Нажми «Найти анаграммы Бога».';sd.appendChild(sh);return;}const li=document.getElementById('suggestionLimit');let ic=parseInt(li.value,10);if(isNaN(ic)||ic<1)ic=60;const mk=(need,tt)=>{let l=(valueIndex&&valueIndex[String(need)])?valueIndex[String(need)]:[];if(!l.length){const tr=((need%baseValue)+baseValue)%baseValue;l=(remainderIndex&&remainderIndex[tr])?remainderIndex[tr]:[];}if(!l.length)return;l=applySuggestionOrder(l);sd.style.display='block';const h=document.createElement('div');h.className='suggestion-header';h.textContent=`${am?"Анаграммы":"Словарь"}: добавь ${need} → будет ${tt}`;sd.appendChild(h);const sh=document.createElement('div');sh.className='suggestion-subheader';sh.textContent=`Вариантов: ${l.length}${sm?" | фильтр по ритму":""}`;sd.appendChild(sh);const ri=(arr)=>{arr.forEach(({w,val})=>{const it=document.createElement('div');it.className='suggestion-item';it.textContent=`${w} (${val})`;it.onclick=()=>{const c=ta.value;const sp=c.trim().length?(/\s$/.test(c)?"":" "):"";ta.value=c+sp+w;ta.focus();ta.selectionStart=ta.selectionEnd=ta.value.length;updateInfoAndSuggestions();};sd.appendChild(it);});};if(l.length>ic){ri(l.slice(0,ic));const mo=document.createElement('div');mo.className='suggestion-item';mo.style.fontWeight='700';mo.style.textAlign='center';mo.textContent=`Показать все (${l.length})`;mo.onclick=()=>{mo.remove();ri(l.slice(ic));};sd.appendChild(mo);}else{ri(l);}};for(let i=0;i<nd.length;i++)mk(nd[i],tg[i]);analyzeMeter();}
+function calculateAll(){updateInfoAndSuggestions();const inp=document.getElementById('inputText').value;const lines=inp.split('\n');const tb=document.querySelector('#results tbody');tb.innerHTML='';lines.forEach(line=>{const rw=line.match(/[А-Яа-яЁё]+/g)||[];const tot=rw.reduce((s,w)=>s+calculateWordValue(w),0);const r=((tot%baseValue)+baseValue)%baseValue;const add=tot===0?0:(r===0?baseValue:(baseValue-r));const res=tot+add;const tr=document.createElement('tr');tr.innerHTML=`<td>${line}</td><td>${tot}</td><td>${add}</td><td>${res}</td>`;tb.appendChild(tr);});}
+function exportDatabase(){const blob=new Blob([JSON.stringify(wordDatabase,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='harmony_database.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);alert("Экспортировано!");}
+function exportSuggestionsTxt(){const am=document.getElementById('anagramModeSwitch').checked;const sm=document.getElementById('meterType').value;if(!valueIndex&&!remainderIndex)rebuildIndexes(sm);const v=getCalcTargetText();const rw=v.match(/[А-Яа-яЁё]+/g)||[];const ts=rw.reduce((s,w)=>s+calculateWordValue(w),0);const rem=((ts%baseValue)+baseValue)%baseValue;let nxt=(ts===0)?baseValue:(ts+(baseValue-rem));if(rem===0&&ts>0)nxt=ts+baseValue;const tg=[nxt,nxt+baseValue,nxt+2*baseValue];const nd=tg.map(t=>t-ts).filter(n=>n>0);const L=[];L.push("=== Подсказки ===");L.push(`Сумма: ${ts}`);L.push(`Основа: ${baseValue}`);L.push(`Ритм: ${sm||"(без)"}`);L.push(`Источник: ${am?"анаграммы":"словарь"}`);L.push("");let af=false;for(let i=0;i<nd.length;i++){const need=nd[i];const tt=tg[i];let l=(valueIndex&&valueIndex[String(need)])?valueIndex[String(need)]:[];let ifb=false;if(!l.length){const tr=((need%baseValue)+baseValue)%baseValue;l=(remainderIndex&&remainderIndex[tr])?remainderIndex[tr]:[];ifb=true;}if(!l.length)continue;l=applySuggestionOrder(l);af=true;L.push("---");L.push(`Добавь ${need} → ${tt}${ifb?" (по остатку)":""}`);L.push(`Вариантов: ${l.length}`);L.push("");l.forEach(({w,val})=>L.push(`${w} (${val})`));L.push("");}if(!af)L.push("Не найдено.");const blob=new Blob([L.join('\n')],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='suggestions.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);alert("Экспортировано!");}
+function importDatabase(){const f=document.createElement('input');f.type='file';f.accept='.json';f.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d&&typeof d==='object'){Object.assign(wordDatabase,d);saveDatabase();updateInfoAndSuggestions();alert("Импортировано!");}}catch{alert("Ошибка JSON.");}};r.readAsText(file);};f.click();}
+function clearDatabase(){if(!confirm('Очистить словарь?'))return;wordDatabase={};saveDatabase();anagramPoolWords=[];anagramPoolSource="";document.getElementById('anagramOutput').innerHTML='';document.getElementById('copyAnagramsBtn').disabled=true;document.getElementById('exportAnagramsBtn').disabled=true;updateInfoAndSuggestions();}
+function analyzeMeter(){const mt=document.getElementById('meterType').value;const tx=document.getElementById('inputText').value.trim();const box=document.getElementById('meterAnalysis');if(!mt||!tx){box.innerHTML="";return;}let wm=0;if(valueIndex){for(const k in valueIndex){for(const it of valueIndex[k]){if(getEntryMeter(wordDatabase[it.w]))wm++;}}}else{const c=getSuggestionCandidateWords();for(const w of c){if(getEntryMeter(wordDatabase[w]))wm++;}}box.innerHTML=`Ритм: <b>${mt}</b>.<br>Слов с meter: <b>${wm}</b>.`;}
+let textHistory=[],isUndoAction=false,historyDebounceTimer=null;
+function pushTextHistory(v){if(isUndoAction)return;if(textHistory.length>0&&textHistory[textHistory.length-1]===v)return;textHistory.push(v);if(textHistory.length>50)textHistory.shift();updateUndoButtonState();}
+function updateUndoButtonState(){const b=document.getElementById('undoBtn');if(!b)return;if(textHistory.length>1){b.disabled=false;b.style.opacity='1';}else{b.disabled=true;b.style.opacity='0.5';}}
+function undoLastChange(){const ta=document.getElementById('inputText');if(textHistory.length<=1){alert('Нечего отменять.');return;}textHistory.pop();const p=textHistory[textHistory.length-1];isUndoAction=true;ta.value=p;ta.focus();ta.selectionStart=ta.selectionEnd=p.length;isUndoAction=false;updateInfoAndSuggestions();updateUndoButtonState();}
+function syncThemeSwitches(c){const a=document.getElementById('themeSwitch');const b=document.getElementById('combThemeSwitch');const d=document.getElementById('rhymeThemeSwitch');if(a)a.checked=c;if(b)b.checked=c;if(d)d.checked=c;}
+function setNightTheme(c){document.body.classList.toggle('night',c);syncThemeSwitches(c);try{localStorage.setItem("theme_night",String(c));}catch(e){}}
+document.getElementById("themeSwitch").addEventListener("change",e=>setNightTheme(e.target.checked));
+document.getElementById("anagramModeSwitch").addEventListener("change",e=>{try{localStorage.setItem("anagram_mode",String(e.target.checked));}catch(err){}updateInfoAndSuggestions();});
+document.getElementById('suggestionLimit').addEventListener('input',function(){let v=parseInt(this.value,10);if(isNaN(v)||v<1)v=1;try{localStorage.setItem('suggestion_limit',String(v));}catch(e){}updateInfoAndSuggestions();});
+document.getElementById('suggestionOrder').addEventListener('change',function(){suggestionOrder=this.value;try{localStorage.setItem('suggestion_order',suggestionOrder);}catch(e){}updateInfoAndSuggestions();});
+document.getElementById('baseValueInput').addEventListener('input',function(){let v=parseInt(this.value,10);if(isNaN(v)||v<2)v=37;baseValue=v;try{localStorage.setItem('base_value',String(v));}catch(e){}updateInfoAndSuggestions();});
+document.getElementById('inputText').addEventListener('input',()=>{clearTimeout(window._deb);window._deb=setTimeout(updateInfoAndSuggestions,250);});
+document.querySelectorAll("input[name='calcMode']").forEach(r=>r.addEventListener('change',updateInfoAndSuggestions));
+document.getElementById('meterType').addEventListener('change',()=>{updateInfoAndSuggestions();});
+(function setupUndo(){const ta=document.getElementById('inputText');if(!ta)return;textHistory=[ta.value];updateUndoButtonState();ta.addEventListener('input',()=>{if(isUndoAction)return;clearTimeout(historyDebounceTimer);historyDebounceTimer=setTimeout(()=>{pushTextHistory(ta.value);},400);});const ou=window.updateInfoAndSuggestions;window.updateInfoAndSuggestions=function(){if(!isUndoAction){clearTimeout(historyDebounceTimer);historyDebounceTimer=setTimeout(()=>{pushTextHistory(ta.value);},400);}return ou.apply(this,arguments);};})();
 
-let wordDatabase = {};
-let anagramPoolWords = [];
-let anagramPoolSource = "";
-let suggestionOrder = "default";
-let baseValue = 37;
-let remainderIndex = null;
-let valueIndex = null;
+/* COMBINATOR */
+let wordsData=[],wordCountLimit=0,isCalculating=false,shouldStop=false,targetValue=37,availableCombinations=[],selectedCombination=null,currentModalMode=2,currentPage=1,pageSize=1000,totalCombinations=0,allCombinations=[];
+function initCombinator(){const dz=document.getElementById('dropZone');const fi=document.getElementById('fileInput');if(!dz||!fi)return;dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);});fi.addEventListener('change',e=>{if(e.target.files.length)handleFile(e.target.files[0]);});document.getElementById("combThemeSwitch").addEventListener("change",e=>setNightTheme(e.target.checked));const si=document.getElementById('startValueInput');if(si)si.addEventListener('input',()=>{clearTimeout(window._startDeb);window._startDeb=setTimeout(()=>generateCombinationsList(),300);});const m=document.getElementById('valueModal');if(m)m.addEventListener('click',e=>{if(e.target.id==='valueModal')closeValueModal();});}
+async function pasteFromClipboard(){const pi=document.getElementById('pasteInput');const ps=document.getElementById('pasteStatus');try{const t=await navigator.clipboard.readText();pi.value=t;ps.textContent='✅ Вставлено! Нажмите "Обработать".';ps.style.color='var(--success)';}catch(err){ps.textContent='❌ Нет доступа к буферу.';ps.style.color='var(--warning-text)';pi.focus();}}
+function processPastedText(){const t=document.getElementById('pasteInput').value.trim();const ps=document.getElementById('pasteStatus');if(!t){showWarning('Вставьте текст');return;}let hv=false;for(const l of t.split('\n')){if(l.trim()&&/\d/.test(l)){hv=true;break;}}if(!hv){showWarning('Формат: слово (число) или слово число');return;}parseData(t);if(wordsData.length>0){ps.textContent=`✅ ${wordsData.length} слов загружено!`;ps.style.color='var(--success)';document.getElementById('fileName').textContent=`📝 Из буфера (${wordsData.length})`;}}
+function handleFile(f){if(!f.name.endsWith('.txt')){showWarning('Нужен .txt');return;}document.getElementById('fileName').textContent=`✅ ${f.name}`;const r=new FileReader();r.onload=e=>parseData(e.target.result);r.readAsText(f,'UTF-8');}
+function parseData(t){wordsData=[];for(let l of t.trim().split('\n')){l=l.trim();if(!l)continue;const op=l.lastIndexOf('('),cp=l.lastIndexOf(')');if(op===-1||cp===-1||cp<op){const ls=l.lastIndexOf(' ');if(ls===-1)continue;const w=l.substring(0,ls).trim();const v=parseInt(l.substring(ls+1));if(w&&!isNaN(v))wordsData.push({word:w,value:v});continue;}const w=l.substring(0,op).trim();const v=parseInt(l.substring(op+1,cp));if(w&&!isNaN(v))wordsData.push({word:w,value:v});}if(!wordsData.length){showWarning('Не удалось распознать');return;}hideWarning();document.getElementById('statsSection').style.display='block';document.getElementById('controlsSection').style.display='block';document.getElementById('calculateBtn').disabled=false;document.getElementById('totalWords').textContent=wordsData.length;if(wordsData.length>1000)document.getElementById('chunkInfo').style.display='block';wordsData.sort((a,b)=>b.value-a.value);updateResultsInfo(`Загружено ${wordsData.length} слов.`);}
+function setTarget(v,e){document.getElementById('targetValue').value=v;document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));if(e&&e.target)e.target.classList.add('active');}
+function setWordCount(c){wordCountLimit=c;document.getElementById('wordCountLimit').textContent=c===0?'∞':c;document.querySelectorAll('.word-count-btn').forEach(b=>b.classList.remove('active'));const btn=document.getElementById(`wc-${c}`);if(btn)btn.classList.add('active');if(c===2){document.getElementById('targetValue').value=37;document.getElementById('targetSum').textContent=37;}else if(c===3){document.getElementById('targetValue').value=74;document.getElementById('targetSum').textContent=74;}}
+async function findCombinations(){if(isCalculating){shouldStop=true;return;}targetValue=parseInt(document.getElementById('targetValue').value);if(isNaN(targetValue)||targetValue<1){showWarning('Некорректная сумма');return;}if(wordCountLimit===2){openValueModal(2,targetValue);return;}if(wordCountLimit===3){openValueModal(3,targetValue);return;}document.getElementById('targetSum').textContent=targetValue;document.getElementById('calculateBtn').textContent='⏹ Остановить';document.getElementById('progressContainer').style.display='block';isCalculating=true;shouldStop=false;const c=await findCombinationsChunked(targetValue);displayResults(c,targetValue);isCalculating=false;document.getElementById('calculateBtn').textContent='🔎 Найти комбинации';}
+async function findCombinationsChunked(target){const res=[];const n=wordsData.length;const cs=n>5000?500:(n>1000?1000:n);document.getElementById('totalCount').textContent=n;for(let s=0;s<n&&!shouldStop;s+=cs){const e=Math.min(s+cs,n);updateProgress(Math.round((s/n)*100));document.getElementById('processedCount').textContent=s;await new Promise(r=>setTimeout(r,10));const cr=await searchChunk(s,e,target,n);res.push(...cr);if(res.length>100000){showWarning('Слишком много (>100000)');break;}}const uniq=[];const seen=new Set();for(const c of res){const k=c.map(x=>x.word).sort().join('|');if(!seen.has(k)){seen.add(k);uniq.push(c);}}return uniq;}
+async function searchChunk(s,e,target,n){const res=[];for(let i=s;i<e&&!shouldStop;i++){const it=wordsData[i];if(it.value>target)continue;if(it.value===target){res.push([it]);continue;}await searchRecursive(i+1,target-it.value,[it],res,n);}return res;}
+async function searchRecursive(si,rem,cur,res,n){if(wordCountLimit>0&&cur.length>=wordCountLimit)return;if(res.length%1000===0)await new Promise(r=>setTimeout(r,0));if(rem===0){res.push([...cur]);return;}if(rem<0||si>=n)return;for(let i=si;i<n&&!shouldStop;i++){const it=wordsData[i];if(it.value>rem)continue;cur.push(it);await searchRecursive(i+1,rem-it.value,cur,res,n);cur.pop();}}
+function updateProgress(p){const f=document.getElementById('progressFill');f.style.width=p+'%';f.textContent=Math.round(p)+'%';}
+function displayResults(c,target){allCombinations=c;totalCombinations=c.length;currentPage=1;document.getElementById('progressFill').style.width='100%';document.getElementById('progressFill').textContent='100%';document.getElementById('processedCount').textContent=wordsData.length;setTimeout(()=>{document.getElementById('progressContainer').style.display='none';},500);document.getElementById('combinationsFound').textContent=c.length;renderCurrentPage(target);}
+function renderCurrentPage(target){const div=document.getElementById('resultsSection');if(totalCombinations===0){div.innerHTML=`<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>Не найдено</h3><p>Сумма ${target}</p></div>`;return;}const s=(currentPage-1)*pageSize;const e=Math.min(s+pageSize,totalCombinations);const show=allCombinations.slice(s,e);const tp=Math.ceil(totalCombinations/pageSize);let html=`<div class="results-header"><div><div class="results-count">Найдено ${totalCombinations} (сумма = ${target})</div><span class="total-badge">Стр. ${currentPage} / ${tp}</span></div><div class="export-buttons"><button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button><button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button><button class="btn-secondary" onclick="exportCurrentPage()">📫 Стр.</button></div></div>`;html+=getPaginationHTML(tp);for(const c of show){html+=`<div class="result-item"><div class="result-words">${c.map(x=>x.word).join(' + ')}</div><div class="result-sum">${c.reduce((a,b)=>a+b.value,0)}</div></div>`;}html+=getPaginationHTML(tp);html+=`<div class="range-info-small">${s+1} - ${e} из ${totalCombinations}</div>`;div.innerHTML=html;}
+function getPaginationHTML(tp){return `<div class="pagination-controls"><button class="pagination-btn" onclick="changePage(1)" ${currentPage===1?'disabled':''}>⏮</button><button class="pagination-btn" onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled':''}>◀</button><span class="pagination-info">${currentPage} / ${tp}</span><button class="pagination-btn" onclick="changePage(${currentPage+1})" ${currentPage===tp?'disabled':''}>▶</button><button class="pagination-btn" onclick="changePage(${tp})" ${currentPage===tp?'disabled':''}>⏭</button><div class="jump-to-page"><input type="number" id="jumpToPage" min="1" max="${tp}" value="${currentPage}" onkeypress="if(event.key==='Enter')jumpToPage()"><button class="btn-secondary" onclick="jumpToPage()" style="padding:6px 10px;width:auto;">→</button></div><div class="page-size-selector"><select onchange="changePageSize(this.value)"><option value="500" ${pageSize===500?'selected':''}>500</option><option value="1000" ${pageSize===1000?'selected':''}>1000</option><option value="2000" ${pageSize===2000?'selected':''}>2000</option><option value="5000" ${pageSize===5000?'selected':''}>5000</option></select></div></div>`;}
+function changePage(np){const tp=Math.ceil(totalCombinations/pageSize);if(np<1||np>tp)return;currentPage=np;renderCurrentPage(document.getElementById('targetValue').value);document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});}
+function jumpToPage(){const i=document.getElementById('jumpToPage');const p=parseInt(i.value);const tp=Math.ceil(totalCombinations/pageSize);if(p>=1&&p<=tp)changePage(p);else{alert(`Введите 1..${tp}`);i.value=currentPage;}}
+function changePageSize(ns){const o=pageSize;pageSize=parseInt(ns);const si=(currentPage-1)*o;currentPage=Math.floor(si/pageSize)+1;renderCurrentPage(document.getElementById('targetValue').value);}
+function exportCurrentPage(){if(!allCombinations.length)return;const s=(currentPage-1)*pageSize;const e=Math.min(s+pageSize,totalCombinations);const show=allCombinations.slice(s,e);let c=`Комбинации (сумма = ${targetValue})\nСтр. ${currentPage}\n\n`;for(const x of show)c+=`${x.map(y=>y.word).join(' + ')} = ${x.reduce((a,b)=>a+b.value,0)}\n`;downloadFile(c,`page_${currentPage}.txt`,'text/plain');}
+function exportToTxt(){if(!allCombinations.length)return;let c=`Комбинации (сумма = ${targetValue})\nВсего: ${allCombinations.length}\n\n`;const lim=10000;for(const x of allCombinations.slice(0,lim))c+=`${x.map(y=>y.word).join(' + ')} = ${x.reduce((a,b)=>a+b.value,0)}\n`;if(allCombinations.length>lim)c+=`\n... и ещё ${allCombinations.length-lim}`;downloadFile(c,'combinations.txt','text/plain');}
+function exportToCsv(){if(!allCombinations.length)return;let c='Слова,Сумма\n';const lim=10000;for(const x of allCombinations.slice(0,lim))c+=`"${x.map(y=>y.word).join(' + ')}",${x.reduce((a,b)=>a+b.value,0)}\n`;downloadFile(c,'combinations.csv','text/csv');}
+function updateResultsInfo(m){document.getElementById('resultsSection').innerHTML=`<div class="empty-state"><div class="empty-state-icon">⏳</div><h3>${m}</h3></div>`;}
+function showWarning(t){document.getElementById('warningText').textContent=t;document.getElementById('warningBox').style.display='block';}
+function hideWarning(){document.getElementById('warningBox').style.display='none';}
+function downloadFile(c,n,t){const b=new Blob([c],{type:t});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=n;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);}
+function openValueModal(mode,ct){currentModalMode=mode;const m=document.getElementById('valueModal');const t=ct||(mode===2?37:74);document.getElementById('modalTitle').textContent=`Комбинация из ${mode} слов (сумма = ${t})`;document.getElementById('minValue').textContent=1;document.getElementById('maxValue').textContent=t-1;const si=document.getElementById('startValueInput');si.value=Math.floor(t/2);si.max=t-1;const qv=document.getElementById('quickValues');qv.innerHTML=`<button class="quick-value-btn" onclick="setStartValue(10)">10</button><button class="quick-value-btn" onclick="setStartValue(${Math.floor(t/2)})">${Math.floor(t/2)}</button><button class="quick-value-btn" onclick="setStartValue(${Math.floor(t/2)+1})">${Math.floor(t/2)+1}</button><button class="quick-value-btn" onclick="setStartValue(${t-10})">${t-10}</button>`;m.classList.add('active');generateCombinationsList(t);}
+function closeValueModal(){document.getElementById('valueModal').classList.remove('active');}
+function setStartValue(v){document.getElementById('startValueInput').value=v;document.querySelectorAll('.quick-value-btn').forEach(b=>{b.classList.remove('active');if(b.textContent==v)b.classList.add('active');});generateCombinationsList();}
+function generateCombinationsList(t){if(!t){const mt=document.getElementById('modalTitle').textContent;const m=mt.match(/сумма = (\d+)/);t=m?parseInt(m[1]):(currentModalMode===2?37:74);}const sv=parseInt(document.getElementById('startValueInput').value)||1;availableCombinations=[];if(currentModalMode===2){for(let a=1;a<t;a++){const b=t-a;const wa=wordsData.filter(w=>w.value===a);const wb=wordsData.filter(w=>w.value===b);if(wa.length&&wb.length)availableCombinations.push({values:[a,b],count:wa.length*wb.length,wordsA:wa,wordsB:wb,target:t});}}else if(currentModalMode===3){for(let a=1;a<t-1;a++)for(let b=1;b<t-a;b++){const c=t-a-b;if(c<1)continue;const wa=wordsData.filter(w=>w.value===a);const wb=wordsData.filter(w=>w.value===b);const wc=wordsData.filter(w=>w.value===c);if(wa.length&&wb.length&&wc.length)availableCombinations.push({values:[a,b,c],count:wa.length*wb.length*wc.length,wordsA:wa,wordsB:wb,wordsC:wc,target:t});}}availableCombinations.sort((x,y)=>Math.abs(x.values[0]-sv)-Math.abs(y.values[0]-sv));renderCombinationsList();}
+function renderCombinationsList(){const c=document.getElementById('combinationsList');if(!availableCombinations.length){c.innerHTML=`<div class="no-combinations">🤷 Нет комбинаций</div>`;return;}let h='';availableCombinations.forEach((co,i)=>{const sel=selectedCombination&&selectedCombination.values.join(',')===co.values.join(',');h+=`<div class="combination-option ${sel?'selected':''}" onclick="selectCombination(${i})"><div class="combination-values">${co.values.map(v=>`<span class="value-tag">${v}</span>`).join('<span class="value-plus">+</span>')}<span class="value-plus">=</span><span class="value-tag">${co.target}</span></div><div class="combination-count">${co.count}</div></div>`;});c.innerHTML=h;if(availableCombinations.length&&!selectedCombination)selectCombination(0);}
+function selectCombination(i){selectedCombination=availableCombinations[i];document.querySelectorAll('.combination-option').forEach((el,idx)=>el.classList.toggle('selected',idx===i));}
+async function applySelectedCombination(){if(!selectedCombination){showWarning('Выберите комбинацию');return;}closeValueModal();if(currentModalMode===2)await showTwoWordCombinations(selectedCombination);else await showThreeWordCombinations(selectedCombination);}
+async function showTwoWordCombinations(co){const res=[];for(const a of co.wordsA)for(const b of co.wordsB){if(a.word!==b.word)res.push([a,b]);}displayResults(res,co.target);const h=document.querySelector('#resultsSection .results-header');if(h)h.innerHTML=`<div><div class="results-count">${co.values[0]} + ${co.values[1]} = ${co.target}</div><div style="font-size:13px;opacity:.8;">Найдено ${res.length} пар</div></div><div class="export-buttons"><button class="btn-secondary" onclick="openValueModal(2,${co.target})">🔄 Изменить</button><button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button><button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button></div>`;document.getElementById('combinationsFound').textContent=res.length;}
+async function showThreeWordCombinations(co){const res=[];for(const a of co.wordsA)for(const b of co.wordsB)for(const c of co.wordsC){if(a.word!==b.word&&a.word!==c.word&&b.word!==c.word)res.push([a,b,c]);}displayResults(res,co.target);const h=document.querySelector('#resultsSection .results-header');if(h)h.innerHTML=`<div><div class="results-count">${co.values.join(' + ')} = ${co.target}</div><div style="font-size:13px;opacity:.8;">Найдено ${res.length} троек</div></div><div class="export-buttons"><button class="btn-secondary" onclick="openValueModal(3,${co.target})">🔄 Изменить</button><button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button><button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button></div>`;document.getElementById('combinationsFound').textContent=res.length;}
 
-function getEntryValue(entry){
-  if (entry == null) return 0;
-  if (typeof entry === 'number') return entry;
-  if (typeof entry === 'object' && Number.isFinite(entry.value)) return entry.value;
-  return 0;
-}
-function getEntryMeter(entry){
-  if (entry && typeof entry === 'object' && entry.meter) return entry.meter;
-  return null;
-}
-function calcWordValueRussian(word){
-  return [...word.toUpperCase()].reduce((s,ch) => s + (letter_values[ch] || 0), 0);
-}
-function calcWordValue(word){
-  const key = (word || "").toLowerCase();
-  const entry = wordDatabase[key];
-  if (entry !== undefined) return getEntryValue(entry);
-  return calcWordValueRussian(word);
-}
-function saveDatabase(){
-  try { localStorage.setItem('wordDatabase', JSON.stringify(wordDatabase)); } catch(e){}
-}
-function loadDatabase(){
-  try {
-    const saved = localStorage.getItem('wordDatabase');
-    if (saved){
-      wordDatabase = JSON.parse(saved) || {};
-      return;
-    }
-  } catch(e){ wordDatabase = {}; }
-  const fallback = ["я","есть","не","знаю","кто","зачем","должен","знать",
-    "любовь","тишина","радость","свет","душа","бог","смысл",
-    "свобода","выбор","сила","тело","путь","мысль","воля","сердце","разум","дух","покой"];
-  fallback.forEach(w => wordDatabase[w] = calcWordValueRussian(w));
-  saveDatabase();
-}
+/* RHYMES */
+let rhymeDatabase={},rhymeGroups={};
+function saveRhymeDatabase(){try{localStorage.setItem('rhymeDatabase',JSON.stringify(rhymeDatabase));localStorage.setItem('rhymeGroups',JSON.stringify(rhymeGroups));}catch(e){}}
+function loadRhymeDatabase(){try{const d=localStorage.getItem('rhymeDatabase');const g=localStorage.getItem('rhymeGroups');if(d)rhymeDatabase=JSON.parse(d)||{};if(g)rhymeGroups=JSON.parse(g)||{};}catch(e){rhymeDatabase={};rhymeGroups={};}}
+function getRhymePart(w){const n=w.normalize('NFD');const c=Array.from(n);const v=/[аеёиоуыэюя]/i;let si=-1;for(let i=0;i<c.length;i++){if(c[i].charCodeAt(0)===0x0301){si=i;break;}}if(si===-1)return null;let vi=-1;for(let i=si-1;i>=0;i--){if(v.test(c[i])){vi=i;break;}}if(vi===-1)return null;return c.slice(vi).join('').normalize('NFC').replace(/\u0301/g,'');}
+function getStressPositionLenient(w){const n=w.normalize('NFD');const c=Array.from(n);const v=/[аеёиоуыэюя]/i;let si=-1;for(let i=0;i<c.length;i++){if(c[i].charCodeAt(0)===0x0301){si=i;break;}}if(si===-1)return null;let n2=0;for(let i=0;i<si;i++){if(v.test(c[i]))n2++;}return n2>0?n2:null;}
+function loadRhymeList(){const t=document.getElementById('rhymeInput').value.trim();if(!t){alert('Вставь список рифм');return;}processRhymeText(t);}
+function uploadRhymeFile(){const f=document.createElement('input');f.type='file';f.accept='.txt';f.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>processRhymeText(ev.target.result);r.readAsText(file,'UTF-8');};f.click();}
+function processRhymeText(text){const cleaned=text.replace(/\([^)]*\)/g,' ');const words=cleaned.match(/[А-Яа-яЁё\u0301]+/g)||[];if(!words.length){alert('Слова не найдены');return;}const parsed=[];const seen=new Set();for(const w of words){const hs=w.normalize('NFD').includes('\u0301');const n=w.normalize('NFC').replace(/\u0301/g,'').toLowerCase();if(n.length<2)continue;if(seen.has(n))continue;seen.add(n);const v=calculateWordValueRussian(n);const sp=hs?getStressPositionLenient(w):null;const sy=countVowels(n);const rp=hs?getRhymePart(w):null;parsed.push({word:n,value:v,stress:sp,syllables:sy,rhymePart:rp});}if(!parsed.length){alert('Слова не распознаны');return;}const eg=new Set();for(const p of parsed){const ex=rhymeDatabase[p.word];if(ex&&ex.groupId&&rhymeGroups[ex.groupId])eg.add(ex.groupId);}let fg,fw;if(eg.size>0){const mg=new Set(parsed.map(p=>p.word));for(const gid of eg){if(rhymeGroups[gid]){for(const w of rhymeGroups[gid])mg.add(w);delete rhymeGroups[gid];}}fw=Array.from(mg);fg='g_'+Date.now()+'_merged';}else{fw=parsed.map(p=>p.word);fg='g_'+Date.now();}for(const p of parsed){const ex=rhymeDatabase[p.word];rhymeDatabase[p.word]={value:p.value,stress:p.stress||(ex&&ex.stress)||null,syllables:p.syllables||(ex&&ex.syllables)||null,rhymePart:p.rhymePart||(ex&&ex.rhymePart)||null,groupId:fg};}for(const w of fw){if(rhymeDatabase[w])rhymeDatabase[w].groupId=fg;}rhymeGroups[fg]=fw;for(const p of parsed){if(!wordDatabase[p.word]||typeof wordDatabase[p.word]==='number'){if(p.stress){wordDatabase[p.word]={value:p.value,meter:determineMeter(p.stress,p.syllables),stress:p.stress,syllables:p.syllables};}else{wordDatabase[p.word]=p.value;}}}saveDatabase();saveRhymeDatabase();document.getElementById('rhymeLoadStatus').textContent=`✅ Загружено ${parsed.length} слов. Всего: ${Object.keys(rhymeDatabase).length} слов, ${Object.keys(rhymeGroups).length} групп.`;updateRhymeDbInfo();updateRhymeSuggestions();}
+function findRhymesForWord(word){const key=(word||'').toLowerCase().normalize('NFC').replace(/\u0301/g,'').replace(/[^а-яё]/g,'');if(!key)return{word:key,rhymes:[]};const entry=rhymeDatabase[key];const rhymes=new Set();if(entry){if(entry.groupId&&rhymeGroups[entry.groupId]){for(const w of rhymeGroups[entry.groupId])if(w!==key)rhymes.add(w);}if(entry.rhymePart){for(const w in rhymeDatabase){if(w===key)continue;if(rhymeDatabase[w].rhymePart===entry.rhymePart)rhymes.add(w);}}}return{word:key,rhymes:Array.from(rhymes)};}
+function getRhymeBase(){const v=parseInt(document.getElementById('rhymeBaseValue').value);return(isNaN(v)||v<2)?37:v;}
+function getRhymeSuggestionLimit(){const el=document.getElementById('rhymeSuggestionLimit');if(!el)return 60;let v=parseInt(el.value,10);if(isNaN(v)||v<1)v=60;return v;}
+function getRhymeSuggestionOrder(){const el=document.getElementById('rhymeSuggestionOrder');return el?el.value:'default';}
+function applyRhymeSuggestionOrder(list){const ord=getRhymeSuggestionOrder();switch(ord){case 'random': return fisherYatesShuffle(list);case 'alpha-az': return [...list].sort((a,b)=>a.w.localeCompare(b.w,'ru'));case 'alpha-za': return [...list].sort((a,b)=>b.w.localeCompare(a.w,'ru'));default: return list;}}
+function renderWordTags(container, items){const limit=getRhymeSuggestionLimit();const render=(arr)=>{for(const it of arr){const span=document.createElement('span');span.className='word-tag';span.textContent=`${it.w} (${it.val})`;span.onclick=()=>insertRhyme(it.w);container.appendChild(span);}};if(items.length>limit){render(items.slice(0,limit));const more=document.createElement('span');more.className='word-tag rhyme-show-all';more.textContent=`Показать все (${items.length})`;more.onclick=()=>{more.remove();render(items.slice(limit));};container.appendChild(more);}else{render(items);}}
+function getCurrentLineIndex(ta){const pos=ta.selectionStart;return (ta.value.substring(0,pos).match(/\n/g)||[]).length;}
+function getCurrentLineInfo(){const ta=document.getElementById('rhymeText');const lines=ta.value.split('\n');const idx=getCurrentLineIndex(ta);const line=lines[idx]||'';const words=line.match(/[А-Яа-яЁё]+/g)||[];const sum=words.reduce((s,w)=>s+calculateWordValue(w),0);return{idx,line,words,sum,totalLines:lines.length};}
+function updateRhymeSuggestions(){const baseVal=getRhymeBase();document.getElementById('rhymeBaseLabel').textContent=baseVal;const {idx,words,sum}=getCurrentLineInfo();const rem=sum%baseVal;const lineComplete=words.length>0&&rem===0;document.getElementById('rhymeSum').textContent=sum;document.getElementById('rhymeNeed').textContent=lineComplete?0:(sum===0?baseVal:(baseVal-rem));const searchInput=document.getElementById('rhymeSearch');if(searchInput.value.trim()){showRhymesForWord(searchInput.value.trim(),'🔍 ручной поиск');return;}if(!lineComplete){showDictionaryForLine(sum,baseVal,words.length,idx);return;}const lastWord=words[words.length-1];showRhymesForWord(lastWord,`📝 строка ${idx+1} завершена (=${sum}) → рифма для следующей`);}
+function showDictionaryForLine(lineSum,baseVal,wordCount,lineIdx){const output=document.getElementById('rhymeOutput');output.innerHTML='';if(wordCount===0){const banner=document.createElement('div');banner.className='rhyme-status-banner incomplete';banner.innerHTML=`<strong>📝 Строка ${lineIdx+1} — пустая</strong><br><span style="font-size:13px;opacity:.8;">Начни строку. Как только сумма достигнет кратности ${baseVal}, покажу рифмы.</span>`;output.appendChild(banner);const completers=[];for(const w in wordDatabase){if(w.length<2)continue;const val=getEntryValue(wordDatabase[w]);if(val===baseVal)completers.push({w,val});}if(completers.length){const ordered=applyRhymeSuggestionOrder(completers);const block=document.createElement('div');block.className='rhyme-group-block';block.innerHTML=`<div class="rhyme-group-header">Одним словом до ${baseVal} (${ordered.length})</div>`;const body=document.createElement('div');body.className='rhyme-group-body';renderWordTags(body,ordered);block.appendChild(body);output.appendChild(block);}else{const p=document.createElement('p');p.className='hint';p.textContent=`Слов со значением ${baseVal} нет — пиши любое, я подскажу как завершить строку.`;output.appendChild(p);}return;}const need1=baseVal-(lineSum%baseVal);const targets=[{need:need1,total:lineSum+need1},{need:need1+baseVal,total:lineSum+need1+baseVal}];const banner=document.createElement('div');banner.className='rhyme-status-banner incomplete';banner.innerHTML=`<strong>📝 Строка ${lineIdx+1} — не завершена</strong> — сумма: <b>${lineSum}</b><br><span style="font-size:13px;opacity:.8;">Добавь слово, чтобы набрать кратность ${baseVal}. После этого покажу рифмы.</span>`;output.appendChild(banner);let hasAny=false;for(const t of targets){let words=findDictionaryWords(t.need,baseVal);if(!words.length)continue;hasAny=true;const isFallback=words.isFallback===true;words=applyRhymeSuggestionOrder(words);const block=document.createElement('div');block.className='rhyme-group-block';block.innerHTML=`<div class="rhyme-group-header">Добавь ${t.need} → строка = ${t.total}${isFallback?' (по остатку)':''} (${words.length})</div>`;const body=document.createElement('div');body.className='rhyme-group-body';renderWordTags(body,words);block.appendChild(body);output.appendChild(block);}if(!hasAny){const p=document.createElement('p');p.className='hint';p.textContent='Нет слов нужного значения в словаре. Загрузи их или измени основу.';output.appendChild(p);}}
+function findDictionaryWords(need,baseVal){const exact=[];for(const w in wordDatabase){if(w.length<2)continue;const val=getEntryValue(wordDatabase[w]);if(val===need)exact.push({w,val});}if(exact.length)return exact;const targetRem=((need%baseVal)+baseVal)%baseVal;const fallback=[];for(const w in wordDatabase){if(w.length<2)continue;const val=getEntryValue(wordDatabase[w]);if(val<=0)continue;if(((val%baseVal)+baseVal)%baseVal===targetRem)fallback.push({w,val});}fallback.isFallback=true;return fallback;}
+function showRhymesForWord(word,label){const output=document.getElementById('rhymeOutput');output.innerHTML='';const baseVal=getRhymeBase();const {word:key,rhymes}=findRhymesForWord(word);if(!rhymes.length){const banner=document.createElement('div');banner.className='rhyme-status-banner complete';const msg=rhymeDatabase[key]?`Рифм к «${key}» пока нет. Загрузи список рифм с этим словом.`:`Слово «${key}» отсутствует в словаре рифм.`;banner.innerHTML=`<strong>«${key}»</strong> — ${label}<br><span style="font-size:13px;opacity:.8;">${msg}</span>`;output.appendChild(banner);return;}let items=rhymes.map(w=>({w,val:rhymeDatabase[w].value}));const ord=getRhymeSuggestionOrder();if(ord==='default')items.sort((a,b)=>a.val-b.val);const ordered=applyRhymeSuggestionOrder(items);const banner=document.createElement('div');banner.className='rhyme-status-banner complete';banner.innerHTML=`<strong>Рифмы для «${key}»</strong> — ${rhymes.length} вариантов <span class="rhyme-source-badge" style="margin-left:6px;">${label}</span><br><span style="font-size:13px;opacity:.8;">Клик по слову — вставит в текущую строку. Значения помогут вписать в ${baseVal}.</span>`;output.appendChild(banner);const block=document.createElement('div');block.className='rhyme-group-block';const body=document.createElement('div');body.className='rhyme-group-body';renderWordTags(body,ordered);block.appendChild(body);output.appendChild(block);}
+function insertRhyme(word){const ta=document.getElementById('rhymeText');const pos=ta.selectionStart;const before=ta.value.substring(0,pos);const after=ta.value.substring(ta.selectionEnd);const sep=(before.length&&!/\s$/.test(before))?' ':'';const sepAfter=(after.length&&!/^\s/.test(after))?' ':'';ta.value=before+sep+word+sepAfter+after;const newPos=pos+sep.length+word.length;ta.focus();ta.selectionStart=ta.selectionEnd=newPos;updateRhymeSuggestions();}
+function updateRhymeDbInfo(){const i=document.getElementById('rhymeDbInfo');if(!i)return;const wc=Object.keys(rhymeDatabase).length;const gc=Object.keys(rhymeGroups).length;i.textContent=`📚 Словарь рифм: ${wc} слов, ${gc} групп`;}
+function exportRhymeDatabase(){const d={rhymeDatabase,rhymeGroups,exportedAt:new Date().toISOString()};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='rhyme_database.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);alert('Экспортировано!');}
+function importRhymeDatabase(){const f=document.createElement('input');f.type='file';f.accept='.json';f.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.rhymeDatabase)Object.assign(rhymeDatabase,d.rhymeDatabase);if(d.rhymeGroups)Object.assign(rhymeGroups,d.rhymeGroups);saveRhymeDatabase();updateRhymeDbInfo();updateRhymeSuggestions();alert('Импортировано!');}catch(e){alert('Ошибка: '+e.message);}};r.readAsText(file);};f.click();}
+function clearRhymeDatabase(){if(!confirm('Очистить словарь рифм?'))return;rhymeDatabase={};rhymeGroups={};saveRhymeDatabase();updateRhymeDbInfo();updateRhymeSuggestions();document.getElementById('rhymeLoadStatus').textContent='';}
+function applyRhymeDisplayMode(mode){const p=document.getElementById('rhymeSearchPanel');if(!p)return;p.classList.remove('mode-sticky','mode-inline','mode-bottom','mode-overlay');p.classList.add('mode-'+mode);p.classList.remove('hidden');const s=document.getElementById('rhymeDisplayMode');if(s)s.value=mode;const b=document.getElementById('rhymeShowBtn');if(b)b.style.display='none';try{localStorage.setItem('rhyme_display_mode',mode);}catch(e){}}
+function changeRhymeDisplayMode(m){applyRhymeDisplayMode(m);}
+function hideRhymePanel(){const p=document.getElementById('rhymeSearchPanel');if(p)p.classList.add('hidden');const b=document.getElementById('rhymeShowBtn');if(b)b.style.display='block';}
+function showRhymePanel(){const p=document.getElementById('rhymeSearchPanel');if(p)p.classList.remove('hidden');const b=document.getElementById('rhymeShowBtn');if(b)b.style.display='none';}
 
-function countVowels(word){
-  return (word.toLowerCase().match(/[аеёиоуыэюя]/g) || []).length;
-}
-function getStressPosition(wordWithStress){
-  const chars = Array.from(wordWithStress.normalize('NFD'));
-  let vc = 0;
-  const vr = /[аеёиоуыэюя]/i;
-  for (let i=0; i<chars.length; i++){
-    if (vr.test(chars[i])){
-      vc++;
-      if (i+1 < chars.length && chars[i+1].charCodeAt(0) === 0x0301) return vc;
-    }
-  }
-  return null;
-}
-function determineMeter(stress, syllables){
-  if (!syllables || syllables <= 0) return "complex";
-  if (syllables === 1) return "monosyllabic";
-  if (syllables === 2) return stress === 1 ? "trochee" : "iamb";
-  if (syllables === 3){
-    if (stress === 1) return "dactyl";
-    if (stress === 2) return "amphibrach";
-    if (stress === 3) return "anapest";
-  }
-  return "complex";
-}
-function addWordsWithStressFromInput(text){
-  const words = text.match(/[А-Яа-яЁё\u0301]+/g) || [];
-  let added = 0;
-  for (const w of words){
-    if (!w.normalize('NFD').includes('\u0301')) continue;
-    const normalForm = w.normalize('NFC').replace(/\u0301/g,'');
-    const key = normalForm.toLowerCase();
-    if (key.length < 2) continue;
-    if (wordDatabase[key] && typeof wordDatabase[key] === 'object') continue;
-    const stressPos = getStressPosition(w);
-    const syllables = countVowels(normalForm);
-    if (!stressPos || !syllables) continue;
-    wordDatabase[key] = {
-      value: calcWordValueRussian(normalForm),
-      meter: determineMeter(stressPos, syllables),
-      stress: stressPos,
-      syllables
-    };
-    added++;
-  }
-  if (added > 0) saveDatabase();
-  return added;
-}
-
-function getCurrentLine(ta){
-  const text = ta.value;
-  const pos = ta.selectionStart;
-  const start = text.lastIndexOf('\n', pos-1) + 1;
-  const end = text.indexOf('\n', pos);
-  return text.slice(start, end === -1 ? text.length : end);
-}
-function getCalcTargetText(){
-  const ta = document.getElementById('inputText');
-  const mode = document.querySelector("input[name='calcMode']:checked").value;
-  return mode === 'line' ? getCurrentLine(ta) : ta.value;
-}
-
-function countLetters(str){
-  const clean = (str || "").toLowerCase().replace(/[^а-яё]/g,'');
-  const counts = {};
-  for (const ch of clean) counts[ch] = (counts[ch] || 0) + 1;
-  return counts;
-}
-function canForm(word, pool){
-  const wc = countLetters(word);
-  for (const ch in wc) if ((pool[ch] || 0) < wc[ch]) return false;
-  return true;
-}
-
-function findAnagrams(){
-  const phrase = document.getElementById('inputText').value.trim();
-  if (!phrase){ alert('Введите фразу'); return; }
-  addWordsWithStressFromInput(phrase);
-  const pool = countLetters(phrase);
-  const wordsByMeter = {
-    'monosyllabic':[],'iamb':[],'trochee':[],'dactyl':[],
-    'amphibrach':[],'anapest':[],'complex':[]
-  };
-  for (const w of Object.keys(wordDatabase)){
-    if (w.length >= 2 && canForm(w, pool)){
-      const m = getEntryMeter(wordDatabase[w]) || 'complex';
-      if (wordsByMeter[m]) wordsByMeter[m].push(w);
-      else wordsByMeter['complex'].push(w);
-    }
-  }
-  anagramPoolWords = [];
-  for (const m in wordsByMeter) anagramPoolWords = anagramPoolWords.concat(wordsByMeter[m]);
-  anagramPoolSource = phrase;
-
-  const out = document.getElementById('anagramOutput');
-  out.innerHTML = '';
-  const order = ['monosyllabic','iamb','trochee','dactyl','amphibrach','anapest','complex'];
-  const names = {
-    'monosyllabic':'Односложные','iamb':'Ямб','trochee':'Хорей','dactyl':'Дактиль',
-    'amphibrach':'Амфибрахий','anapest':'Анапест','complex':'Сложный ритм'
-  };
-  let total = 0;
-  for (const m of order){
-    const arr = wordsByMeter[m];
-    if (arr && arr.length){
-      total += arr.length;
-      const h = document.createElement('div');
-      h.className = 'suggestion-header';
-      h.textContent = `${names[m]} (${arr.length})`;
-      out.appendChild(h);
-      const g = document.createElement('div');
-      g.style.padding = '5px 10px';
-      arr.forEach(w => {
-        const s = document.createElement('span');
-        s.className = 'word-tag';
-        s.textContent = `${w} (${getEntryValue(wordDatabase[w])})`;
-        g.appendChild(s);
-      });
-      out.appendChild(g);
-    }
-  }
-  document.getElementById('copyAnagramsBtn').disabled = total === 0;
-  if (total === 0) out.innerHTML = '<p>Нет подходящих слов.</p>';
-  updateInfoAndSuggestions();
-}
-
-function copyAnagrams(){
-  const phrase = document.getElementById('inputText').value.trim();
-  if (!phrase) return;
-  const pool = countLetters(phrase);
-  const found = [];
-  for (const w of Object.keys(wordDatabase)){
-    if (w.length >= 2 && canForm(w, pool)) found.push(`${w} (${getEntryValue(wordDatabase[w])})`);
-  }
-  const text = found.join('\n');
-  if (navigator.clipboard){
-    navigator.clipboard.writeText(text).catch(() => {});
-  } else {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-  }
-  alert('Скопировано!');
-}
-
-function fisherYatesShuffle(arr){
-  const a = [...arr];
-  for (let i = a.length-1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
-  return a;
-}
-function applySuggestionOrder(list){
-  switch (suggestionOrder){
-    case 'random': return fisherYatesShuffle(list);
-    case 'alpha-az': return [...list].sort((a,b) => a.w.localeCompare(b.w,'ru'));
-    case 'alpha-za': return [...list].sort((a,b) => b.w.localeCompare(a.w,'ru'));
-    default: return list;
-  }
-}
-function getSuggestionCandidateWords(){
-  const anMode = document.getElementById('anagramModeSwitch').checked;
-  if (!anMode) return Object.keys(wordDatabase);
-  if (!anagramPoolWords || !anagramPoolWords.length) return [];
-  return anagramPoolWords;
-}
-function rebuildIndexes(selectedMeter){
-  selectedMeter = selectedMeter || "";
-  const idx = Array.from({length: baseValue}, () => []);
-  const vIdx = Object.create(null);
-  const candidates = getSuggestionCandidateWords();
-  for (const w of candidates){
-    if (!w || w.length < 2) continue;
-    const entry = wordDatabase[w];
-    if (entry === undefined) continue;
-    if (selectedMeter){
-      const m = getEntryMeter(entry);
-      if (!m || m !== selectedMeter) continue;
-    }
-    const val = getEntryValue(entry);
-    const r = ((val % baseValue) + baseValue) % baseValue;
-    idx[r].push({w, val});
-    const k = String(val);
-    if (!vIdx[k]) vIdx[k] = [];
-    vIdx[k].push({w, val});
-  }
-  remainderIndex = idx;
-  valueIndex = vIdx;
-}
-function updatePoolInfoLine(){
-  const el = document.getElementById('poolInfo');
-  const anMode = document.getElementById('anagramModeSwitch').checked;
-  const meter = document.getElementById('meterType').value;
-  if (!anMode){
-    el.textContent = meter
-      ? `Словарь | Ритм: ${meter} | Основа: ${baseValue}`
-      : `Словарь | Основа: ${baseValue}`;
-    return;
-  }
-  if (!anagramPoolWords || !anagramPoolWords.length){
-    el.textContent = "Анаграмма включена: нажми «Найти анаграммы».";
-    return;
-  }
-  const src = (anagramPoolSource || "").replace(/\s+/g,' ').trim();
-  const short = src.length > 60 ? src.slice(0,60) + "…" : src;
-  el.textContent = `Анаграммы | Основа: ${baseValue} | Источник: «${short}»`;
-}
-
-function updateInfoAndSuggestions(){
-  try {
-    const ta = document.getElementById('inputText');
-    const sugDiv = document.getElementById('suggestions');
-
-    addWordsWithStressFromInput(ta.value);
-    const selectedMeter = document.getElementById('meterType').value;
-    rebuildIndexes(selectedMeter);
-    updatePoolInfoLine();
-
-    const value = getCalcTargetText();
-    const words = value.match(/[А-Яа-яЁё]+/g) || [];
-    const totalSum = words.reduce((s,w) => s + calcWordValue(w), 0);
-
-    const rem = ((totalSum % baseValue) + baseValue) % baseValue;
-    let next = (totalSum === 0) ? baseValue : (totalSum + (baseValue - rem));
-    if (rem === 0 && totalSum > 0) next = totalSum + baseValue;
-    const targets = [next, next + baseValue, next + 2*baseValue];
-    const needs = targets.map(t => t - totalSum).filter(n => n > 0);
-
-    document.getElementById('currentSum').textContent = totalSum;
-    document.getElementById('neededRemainder').textContent = needs[0] || 0;
-
-    sugDiv.innerHTML = '';
-    sugDiv.style.display = 'none';
-
-    const anMode = document.getElementById('anagramModeSwitch').checked;
-    if (anMode && (!anagramPoolWords || !anagramPoolWords.length)){
-      sugDiv.style.display = 'block';
-      const h = document.createElement('div');
-      h.className = 'suggestion-header';
-      h.textContent = 'Анаграмма включена';
-      sugDiv.appendChild(h);
-      const sh = document.createElement('div');
-      sh.className = 'suggestion-subheader';
-      sh.textContent = 'Нажми «Найти анаграммы», чтобы построить список.';
-      sugDiv.appendChild(sh);
-      return;
-    }
-
-    let initialCount = parseInt(document.getElementById('suggestionLimit').value, 10);
-    if (isNaN(initialCount) || initialCount < 1) initialCount = 60;
-
-    const makeSection = (need, targetTotal) => {
-      let list = (valueIndex && valueIndex[String(need)]) ? valueIndex[String(need)] : [];
-      if (!list.length){
-        const targetRem = ((need % baseValue) + baseValue) % baseValue;
-        list = (remainderIndex && remainderIndex[targetRem]) ? remainderIndex[targetRem] : [];
-      }
-      if (!list.length) return;
-      list = applySuggestionOrder(list);
-      sugDiv.style.display = 'block';
-      const h = document.createElement('div');
-      h.className = 'suggestion-header';
-      h.textContent = `${anMode ? "Анаграммы" : "Словарь"}: добавь ${need} → будет ${targetTotal}`;
-      sugDiv.appendChild(h);
-      const sh = document.createElement('div');
-      sh.className = 'suggestion-subheader';
-      sh.textContent = `Вариантов: ${list.length}${selectedMeter ? " | фильтр по ритму" : ""}`;
-      sugDiv.appendChild(sh);
-      const renderItems = (arr) => {
-        arr.forEach(({w,val}) => {
-          const item = document.createElement('div');
-          item.className = 'suggestion-item';
-          item.textContent = `${w} (${val})`;
-          item.onclick = () => {
-            const cur = ta.value;
-            const sep = cur.trim().length ? (/\s$/.test(cur) ? "" : " ") : "";
-            ta.value = cur + sep + w;
-            ta.focus();
-            ta.selectionStart = ta.selectionEnd = ta.value.length;
-            updateInfoAndSuggestions();
-          };
-          sugDiv.appendChild(item);
-        });
-      };
-      if (list.length > initialCount){
-        renderItems(list.slice(0, initialCount));
-        const more = document.createElement('div');
-        more.className = 'suggestion-item';
-        more.style.fontWeight = '700';
-        more.style.textAlign = 'center';
-        more.textContent = `Показать все (${list.length})`;
-        more.onclick = () => { more.remove(); renderItems(list.slice(initialCount)); };
-        sugDiv.appendChild(more);
-      } else {
-        renderItems(list);
-      }
-    };
-    for (let i = 0; i < needs.length; i++) makeSection(needs[i], targets[i]);
-    analyzeMeter();
-  } catch(e){ console.error('updateInfoAndSuggestions:', e); }
-}
-
-function calculateAll(){
-  try {
-    updateInfoAndSuggestions();
-    const input = document.getElementById('inputText').value;
-    const lines = input.split('\n');
-    const tbody = document.querySelector('#results tbody');
-    tbody.innerHTML = '';
-    lines.forEach(line => {
-      const words = line.match(/[А-Яа-яЁё]+/g) || [];
-      const total = words.reduce((s,w) => s + calcWordValue(w), 0);
-      const r = ((total % baseValue) + baseValue) % baseValue;
-      const add = total === 0 ? 0 : (r === 0 ? baseValue : (baseValue - r));
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${line}</td><td>${total}</td><td>${add}</td><td>${total + add}</td>`;
-      tbody.appendChild(tr);
-    });
-  } catch(e){ console.error('calculateAll:', e); }
-}
-
-function exportDatabase(){
-  const blob = new Blob([JSON.stringify(wordDatabase, null, 2)], {type: 'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'harmony_database.json';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  alert("База экспортирована!");
-}
-
-function exportSuggestionsTxt(){
-  try {
-    const anMode = document.getElementById('anagramModeSwitch').checked;
-    const selectedMeter = document.getElementById('meterType').value;
-    if (!valueIndex && !remainderIndex) rebuildIndexes(selectedMeter);
-    const value = getCalcTargetText();
-    const words = value.match(/[А-Яа-яЁё]+/g) || [];
-    const totalSum = words.reduce((s,w) => s + calcWordValue(w), 0);
-    const rem = ((totalSum % baseValue) + baseValue) % baseValue;
-    let next = (totalSum === 0) ? baseValue : (totalSum + (baseValue - rem));
-    if (rem === 0 && totalSum > 0) next = totalSum + baseValue;
-    const targets = [next, next + baseValue, next + 2*baseValue];
-    const needs = targets.map(t => t - totalSum).filter(n => n > 0);
-    const lines = [];
-    lines.push("=== Подсказки ===");
-    lines.push(`Сумма: ${totalSum} | Основа: ${baseValue} | Ритм: ${selectedMeter || "(все)"}`);
-    lines.push("");
-    let any = false;
-    for (let i = 0; i < needs.length; i++){
-      const need = needs[i];
-      let list = (valueIndex && valueIndex[String(need)]) ? valueIndex[String(need)] : [];
-      if (!list.length){
-        const tr = ((need % baseValue) + baseValue) % baseValue;
-        list = (remainderIndex && remainderIndex[tr]) ? remainderIndex[tr] : [];
-      }
-      if (!list.length) continue;
-      list = applySuggestionOrder(list);
-      any = true;
-      lines.push(`--- Добавь ${need} → будет ${targets[i]} ---`);
-      list.forEach(({w,val}) => lines.push(`${w} (${val})`));
-      lines.push("");
-    }
-    if (!any) lines.push("Ничего не найдено.");
-    const blob = new Blob([lines.join('\n')], {type: 'text/plain;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'suggestions.txt';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    alert("Экспортировано!");
-  } catch(e){ console.error(e); alert('Ошибка экспорта'); }
-}
-
-function importDatabase(){
-  const f = document.createElement('input');
-  f.type = 'file';
-  f.accept = '.json';
-  f.onchange = e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      try {
-        const data = JSON.parse(ev.target.result);
-        if (data && typeof data === 'object'){
-          Object.assign(wordDatabase, data);
-          saveDatabase();
-          updateInfoAndSuggestions();
-          alert("Импортировано!");
-        }
-      } catch { alert("Ошибка JSON."); }
-    };
-    reader.readAsText(file);
-  };
-  f.click();
-}
-function clearDatabase(){
-  if (!confirm('Очистить словарь?')) return;
-  wordDatabase = {};
-  saveDatabase();
-  anagramPoolWords = [];
-  anagramPoolSource = "";
-  document.getElementById('anagramOutput').innerHTML = '';
-  document.getElementById('copyAnagramsBtn').disabled = true;
-  updateInfoAndSuggestions();
-}
-
-function analyzeMeter(){
-  try {
-    const meterType = document.getElementById('meterType').value;
-    const text = document.getElementById('inputText').value.trim();
-    const box = document.getElementById('meterAnalysis');
-    if (!meterType || !text){ box.innerHTML = ""; return; }
-    let withMeter = 0;
-    const candidates = getSuggestionCandidateWords();
-    for (const w of candidates){
-      if (getEntryMeter(wordDatabase[w])) withMeter++;
-    }
-    box.innerHTML = `Ритм: <b>${meterType}</b>.<br>Слов с ударением: <b>${withMeter}</b>.`;
-  } catch(e){ console.error(e); }
-}
-
-/* ============================================================
-   ПРИЛОЖЕНИЕ 2: КОМБИНАТОР
-   ============================================================ */
-let wordsData = [];
-let wordCountLimit = 0;
-let isCalculating = false;
-let shouldStop = false;
-let targetValue = 37;
-let availableCombinations = [];
-let selectedCombination = null;
-let currentModalMode = 2;
-let currentPage = 1;
-let pageSize = 1000;
-let totalCombinations = 0;
-let allCombinations = [];
-
-function initCombinator(){
-  const dropZone = document.getElementById('dropZone');
-  const fileInput = document.getElementById('fileInput');
-  if (!dropZone || !fileInput) return;
-
-  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
-  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-  dropZone.addEventListener('drop', e => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-  });
-  fileInput.addEventListener('change', e => {
-    if (e.target.files.length) handleFile(e.target.files[0]);
-  });
-
-  // --- Обработчик вставки из буфера (секция paste) ---
-  const pasteInput = document.getElementById('pasteInput');
-  const pasteStatus = document.getElementById('pasteStatus');
-  if (pasteInput){
-    pasteInput.addEventListener('paste', function(){
-      setTimeout(() => {
-        const text = pasteInput.value.trim();
-        if (text.length > 10){
-          pasteStatus.textContent = '📋 Текст вставлен. Нажмите "Обработать вставленный текст" для загрузки.';
-          pasteStatus.style.color = 'var(--accent)';
-        }
-      }, 100);
-    });
-  }
-
-  const startInput = document.getElementById('startValueInput');
-  if (startInput){
-    startInput.addEventListener('input', () => {
-      clearTimeout(window._startDeb);
-      window._startDeb = setTimeout(() => generateCombinationsList(), 300);
-    });
-  }
-  const modal = document.getElementById('valueModal');
-  if (modal){
-    modal.addEventListener('click', e => {
-      if (e.target.id === 'valueModal') closeValueModal();
-    });
-  }
-}
-
-/* --- Вставка из буфера обмена --- */
-async function pasteFromClipboard(){
-  const pasteInput = document.getElementById('pasteInput');
-  const pasteStatus = document.getElementById('pasteStatus');
-  try {
-    const text = await navigator.clipboard.readText();
-    pasteInput.value = text;
-    pasteStatus.textContent = '✅ Текст вставлен из буфера! Нажмите "Обработать вставленный текст".';
-    pasteStatus.style.color = 'var(--success)';
-  } catch (err) {
-    pasteStatus.textContent = '❌ Не удалось получить доступ к буферу. Вставьте вручную (Ctrl+V).';
-    pasteStatus.style.color = 'var(--warning-text)';
-    pasteInput.focus();
-    console.error('Ошибка доступа к буферу:', err);
-  }
-}
-
-/* --- Обработка вставленного текста --- */
-function processPastedText(){
-  const text = document.getElementById('pasteInput').value.trim();
-  const pasteStatus = document.getElementById('pasteStatus');
-  if (!text){
-    showWarning('Вставьте текст в поле выше');
-    return;
-  }
-  const lines = text.split('\n');
-  let hasValidData = false;
-  for (const line of lines){
-    if (line.trim() && /\d/.test(line)){ hasValidData = true; break; }
-  }
-  if (!hasValidData){
-    showWarning('В тексте не найдено чисел. Формат: слово (число) или слово число');
-    return;
-  }
-  parseData(text);
-  if (wordsData.length > 0){
-    pasteStatus.textContent = `✅ Загружено ${wordsData.length} слов из вставленного текста!`;
-    pasteStatus.style.color = 'var(--success)';
-    document.getElementById('fileName').textContent = `📝 Вставлено из буфера (${wordsData.length} записей)`;
-  }
-}
-
-function handleFile(file){
-  if (!file.name.endsWith('.txt')){ showWarning('Нужен файл .txt'); return; }
-  document.getElementById('fileName').textContent = `✅ ${file.name}`;
-  const reader = new FileReader();
-  reader.onload = e => parseData(e.target.result);
-  reader.readAsText(file, 'UTF-8');
-}
-function parseData(text){
-  wordsData = [];
-  const lines = text.trim().split('\n');
-  for (let line of lines){
-    line = line.trim();
-    if (!line) continue;
-    const op = line.lastIndexOf('(');
-    const cp = line.lastIndexOf(')');
-    if (op === -1 || cp === -1 || cp < op){
-      const ls = line.lastIndexOf(' ');
-      if (ls === -1) continue;
-      const word = line.substring(0, ls).trim();
-      const value = parseInt(line.substring(ls+1));
-      if (word && !isNaN(value)) wordsData.push({word, value});
-      continue;
-    }
-    const word = line.substring(0, op).trim();
-    const value = parseInt(line.substring(op+1, cp));
-    if (word && !isNaN(value)) wordsData.push({word, value});
-  }
-  if (!wordsData.length){ showWarning('Не удалось распознать данные'); return; }
-  hideWarning();
-  document.getElementById('statsSection').style.display = 'block';
-  document.getElementById('controlsSection').style.display = 'block';
-  document.getElementById('calculateBtn').disabled = false;
-  document.getElementById('totalWords').textContent = wordsData.length;
-  if (wordsData.length > 1000) document.getElementById('chunkInfo').style.display = 'block';
-  wordsData.sort((a,b) => b.value - a.value);
-  updateResultsInfo(`Загружено ${wordsData.length} слов. Нажмите "Найти комбинации".`);
-}
-function setTarget(value, event){
-  document.getElementById('targetValue').value = value;
-  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-  if (event && event.target) event.target.classList.add('active');
-}
-function setWordCount(count){
-  wordCountLimit = count;
-  document.getElementById('wordCountLimit').textContent = count === 0 ? '∞' : count;
-  document.querySelectorAll('.word-count-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById(`wc-${count}`);
-  if (btn) btn.classList.add('active');
-  if (count === 2){
-    document.getElementById('targetValue').value = 37;
-    document.getElementById('targetSum').textContent = 37;
-  } else if (count === 3){
-    document.getElementById('targetValue').value = 74;
-    document.getElementById('targetSum').textContent = 74;
-  }
-}
-async function findCombinations(){
-  if (isCalculating){ shouldStop = true; return; }
-  targetValue = parseInt(document.getElementById('targetValue').value);
-  if (isNaN(targetValue) || targetValue < 1){ showWarning('Некорректная сумма'); return; }
-  if (wordCountLimit === 2){ openValueModal(2, targetValue); return; }
-  if (wordCountLimit === 3){ openValueModal(3, targetValue); return; }
-
-  document.getElementById('targetSum').textContent = targetValue;
-  document.getElementById('calculateBtn').textContent = '⏹ Остановить';
-  document.getElementById('progressContainer').style.display = 'block';
-  isCalculating = true;
-  shouldStop = false;
-
-  const combos = await findCombinationsChunked(targetValue);
-  displayResults(combos, targetValue);
-  isCalculating = false;
-  document.getElementById('calculateBtn').textContent = '🔎 Найти комбинации';
-}
-async function findCombinationsChunked(target){
-  const results = [];
-  const n = wordsData.length;
-  const chunkSize = n > 5000 ? 500 : (n > 1000 ? 1000 : n);
-  document.getElementById('totalCount').textContent = n;
-  for (let cs = 0; cs < n && !shouldStop; cs += chunkSize){
-    const ce = Math.min(cs + chunkSize, n);
-    updateProgress(Math.round((cs / n) * 100));
-    document.getElementById('processedCount').textContent = cs;
-    await new Promise(r => setTimeout(r, 10));
-    const chunkResults = await searchChunk(cs, ce, target, n);
-    results.push(...chunkResults);
-    if (results.length > 100000){ showWarning('Слишком много (>100000)'); break; }
-  }
-  const unique = [];
-  const seen = new Set();
-  for (const c of results){
-    const key = c.map(x => x.word).sort().join('|');
-    if (!seen.has(key)){ seen.add(key); unique.push(c); }
-  }
-  return unique;
-}
-async function searchChunk(s, e, target, n){
-  const results = [];
-  for (let i = s; i < e && !shouldStop; i++){
-    const item = wordsData[i];
-    if (item.value > target) continue;
-    if (item.value === target){ results.push([item]); continue; }
-    await searchRecursive(i+1, target - item.value, [item], results, n);
-  }
-  return results;
-}
-async function searchRecursive(startIdx, remaining, cur, results, n){
-  if (wordCountLimit > 0 && cur.length >= wordCountLimit) return;
-  if (results.length % 1000 === 0) await new Promise(r => setTimeout(r, 0));
-  if (remaining === 0){ results.push([...cur]); return; }
-  if (remaining < 0 || startIdx >= n) return;
-  for (let i = startIdx; i < n && !shouldStop; i++){
-    const item = wordsData[i];
-    if (item.value > remaining) continue;
-    cur.push(item);
-    await searchRecursive(i+1, remaining - item.value, cur, results, n);
-    cur.pop();
-  }
-}
-function updateProgress(p){
-  const f = document.getElementById('progressFill');
-  f.style.width = p + '%';
-  f.textContent = Math.round(p) + '%';
-}
-function displayResults(combos, target){
-  allCombinations = combos;
-  totalCombinations = combos.length;
-  currentPage = 1;
-  document.getElementById('progressFill').style.width = '100%';
-  document.getElementById('progressFill').textContent = '100%';
-  document.getElementById('processedCount').textContent = wordsData.length;
-  setTimeout(() => { document.getElementById('progressContainer').style.display = 'none'; }, 500);
-  document.getElementById('combinationsFound').textContent = combos.length;
-  renderCurrentPage(target);
-}
-function renderCurrentPage(target){
-  const div = document.getElementById('resultsSection');
-  if (totalCombinations === 0){
-    div.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>Не найдено</h3><p>Сумма ${target}</p></div>`;
-    return;
-  }
-  const s = (currentPage-1) * pageSize;
-  const e = Math.min(s + pageSize, totalCombinations);
-  const show = allCombinations.slice(s, e);
-  const tp = Math.ceil(totalCombinations / pageSize);
-  let html = `<div class="results-header">
-    <div>
-      <div class="results-count">Найдено ${totalCombinations} комбинаций (сумма = ${target})</div>
-      <span class="total-badge">Стр. ${currentPage} / ${tp}</span>
-    </div>
-    <div class="export-buttons">
-      <button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button>
-      <button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button>
-      <button class="btn-secondary" onclick="exportCurrentPage()">📫 Стр.</button>
-    </div>
-  </div>`;
-  html += getPaginationHTML(tp);
-  for (const c of show){
-    const words = c.map(x => x.word).join(' + ');
-    const sum = c.reduce((a,b) => a + b.value, 0);
-    html += `<div class="result-item"><div class="result-words">${words}</div><div class="result-sum">${sum}</div></div>`;
-  }
-  html += getPaginationHTML(tp);
-  html += `<div class="range-info-small">${s+1} - ${e} из ${totalCombinations}</div>`;
-  div.innerHTML = html;
-}
-function getPaginationHTML(tp){
-  return `<div class="pagination-controls">
-    <button class="pagination-btn" onclick="changePage(1)" ${currentPage===1?'disabled':''}>⏮ Первая</button>
-    <button class="pagination-btn" onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled':''}>◀</button>
-    <span class="pagination-info">${currentPage} / ${tp}</span>
-    <button class="pagination-btn" onclick="changePage(${currentPage+1})" ${currentPage===tp?'disabled':''}>▶</button>
-    <button class="pagination-btn" onclick="changePage(${tp})" ${currentPage===tp?'disabled':''}>Посл. ⏭</button>
-    <div class="jump-to-page">
-      <input type="number" id="jumpToPage" min="1" max="${tp}" value="${currentPage}" onkeypress="if(event.key==='Enter') jumpToPage()">
-      <button class="btn-secondary" onclick="jumpToPage()" style="padding:6px 10px;width:auto;">Перейти</button>
-    </div>
-    <div class="page-size-selector">
-      <select onchange="changePageSize(this.value)">
-        <option value="500" ${pageSize===500?'selected':''}>500</option>
-        <option value="1000" ${pageSize===1000?'selected':''}>1000</option>
-        <option value="2000" ${pageSize===2000?'selected':''}>2000</option>
-        <option value="5000" ${pageSize===5000?'selected':''}>5000</option>
-      </select>
-    </div>
-  </div>`;
-}
-function changePage(np){
-  const tp = Math.ceil(totalCombinations / pageSize);
-  if (np < 1 || np > tp) return;
-  currentPage = np;
-  renderCurrentPage(document.getElementById('targetValue').value);
-  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});
-}
-function jumpToPage(){
-  const inp = document.getElementById('jumpToPage');
-  const p = parseInt(inp.value);
-  const tp = Math.ceil(totalCombinations / pageSize);
-  if (p >= 1 && p <= tp) changePage(p);
-  else { alert(`Введите 1..${tp}`); inp.value = currentPage; }
-}
-function changePageSize(ns){
-  const old = pageSize;
-  pageSize = parseInt(ns);
-  const startItem = (currentPage-1) * old;
-  currentPage = Math.floor(startItem / pageSize) + 1;
-  renderCurrentPage(document.getElementById('targetValue').value);
-}
-function exportCurrentPage(){
-  if (!allCombinations.length) return;
-  const s = (currentPage-1) * pageSize;
-  const e = Math.min(s + pageSize, totalCombinations);
-  const show = allCombinations.slice(s, e);
-  let content = `Комбинации (сумма = ${targetValue})\nСтр. ${currentPage}\n\n`;
-  for (const c of show){
-    content += `${c.map(x=>x.word).join(' + ')} = ${c.reduce((a,b)=>a+b.value,0)}\n`;
-  }
-  downloadFile(content, `page_${currentPage}.txt`, 'text/plain');
-}
-function exportToTxt(){
-  if (!allCombinations.length) return;
-  let content = `Комбинации (сумма = ${targetValue})\nВсего: ${allCombinations.length}\n\n`;
-  const lim = 10000;
-  const toExp = allCombinations.slice(0, lim);
-  for (const c of toExp){
-    content += `${c.map(x=>x.word).join(' + ')} = ${c.reduce((a,b)=>a+b.value,0)}\n`;
-  }
-  if (allCombinations.length > lim) content += `\n... и ещё ${allCombinations.length - lim}`;
-  downloadFile(content, 'combinations.txt', 'text/plain');
-}
-function exportToCsv(){
-  if (!allCombinations.length) return;
-  let content = 'Слова,Сумма\n';
-  const lim = 10000;
-  for (const c of allCombinations.slice(0, lim)){
-    content += `"${c.map(x=>x.word).join(' + ')}",${c.reduce((a,b)=>a+b.value,0)}\n`;
-  }
-  downloadFile(content, 'combinations.csv', 'text/csv');
-}
-function updateResultsInfo(msg){
-  document.getElementById('resultsSection').innerHTML = `<div class="empty-state"><div class="empty-state-icon">⏳</div><h3>${msg}</h3></div>`;
-}
-function showWarning(t){
-  document.getElementById('warningText').textContent = t;
-  document.getElementById('warningBox').style.display = 'block';
-}
-function hideWarning(){
-  document.getElementById('warningBox').style.display = 'none';
-}
-function downloadFile(content, name, type){
-  const blob = new Blob([content], {type});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = name;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-/* Модальное окно */
-function openValueModal(mode, customTarget){
-  currentModalMode = mode;
-  const modal = document.getElementById('valueModal');
-  const target = customTarget || (mode === 2 ? 37 : 74);
-  document.getElementById('modalTitle').textContent = `Комбинация из ${mode} слов (сумма = ${target})`;
-  document.getElementById('minValue').textContent = 1;
-  document.getElementById('maxValue').textContent = target - 1;
-  const si = document.getElementById('startValueInput');
-  si.value = Math.floor(target / 2);
-  si.max = target - 1;
-  const qv = document.getElementById('quickValues');
-  qv.innerHTML = `
-    <button class="quick-value-btn" onclick="setStartValue(10)">10</button>
-    <button class="quick-value-btn" onclick="setStartValue(${Math.floor(target/2)})">${Math.floor(target/2)}</button>
-    <button class="quick-value-btn" onclick="setStartValue(${Math.floor(target/2)+1})">${Math.floor(target/2)+1}</button>
-    <button class="quick-value-btn" onclick="setStartValue(${target-10})">${target-10}</button>`;
-  modal.classList.add('active');
-  generateCombinationsList(target);
-}
-function closeValueModal(){
-  document.getElementById('valueModal').classList.remove('active');
-}
-function setStartValue(v){
-  document.getElementById('startValueInput').value = v;
-  document.querySelectorAll('.quick-value-btn').forEach(b => {
-    b.classList.remove('active');
-    if (b.textContent == v) b.classList.add('active');
-  });
-  generateCombinationsList();
-}
-function generateCombinationsList(target){
-  if (!target){
-    const mt = document.getElementById('modalTitle').textContent;
-    const m = mt.match(/сумма = (\d+)/);
-    target = m ? parseInt(m[1]) : (currentModalMode === 2 ? 37 : 74);
-  }
-  const sv = parseInt(document.getElementById('startValueInput').value) || 1;
-  availableCombinations = [];
-  if (currentModalMode === 2){
-    for (let a = 1; a < target; a++){
-      const b = target - a;
-      const wa = wordsData.filter(w => w.value === a);
-      const wb = wordsData.filter(w => w.value === b);
-      if (wa.length && wb.length){
-        availableCombinations.push({
-          values: [a, b], count: wa.length * wb.length,
-          wordsA: wa, wordsB: wb, target
-        });
-      }
-    }
-  } else if (currentModalMode === 3){
-    for (let a = 1; a < target - 1; a++){
-      for (let b = 1; b < target - a; b++){
-        const c = target - a - b;
-        if (c < 1) continue;
-        const wa = wordsData.filter(w => w.value === a);
-        const wb = wordsData.filter(w => w.value === b);
-        const wc = wordsData.filter(w => w.value === c);
-        if (wa.length && wb.length && wc.length){
-          availableCombinations.push({
-            values: [a, b, c], count: wa.length * wb.length * wc.length,
-            wordsA: wa, wordsB: wb, wordsC: wc, target
-          });
-        }
-      }
-    }
-  }
-  availableCombinations.sort((x, y) =>
-    Math.abs(x.values[0] - sv) - Math.abs(y.values[0] - sv));
-  renderCombinationsList();
-}
-function renderCombinationsList(){
-  const c = document.getElementById('combinationsList');
-  if (!availableCombinations.length){
-    c.innerHTML = `<div class="no-combinations"><div style="font-size:2em;">🤷</div><div>Нет комбинаций</div></div>`;
-    return;
-  }
-  let html = '';
-  availableCombinations.forEach((combo, i) => {
-    const sel = selectedCombination && selectedCombination.values.join(',') === combo.values.join(',');
-    html += `<div class="combination-option ${sel?'selected':''}" onclick="selectCombination(${i})">
-      <div class="combination-values">
-        ${combo.values.map(v => `<span class="value-tag">${v}</span>`).join('<span class="value-plus">+</span>')}
-        <span class="value-plus">=</span>
-        <span class="value-tag">${combo.target}</span>
-      </div>
-      <div class="combination-count">${combo.count}</div>
-    </div>`;
-  });
-  c.innerHTML = html;
-  if (availableCombinations.length && !selectedCombination) selectCombination(0);
-}
-function selectCombination(i){
-  selectedCombination = availableCombinations[i];
-  document.querySelectorAll('.combination-option').forEach((el, idx) => {
-    el.classList.toggle('selected', idx === i);
-  });
-}
-async function applySelectedCombination(){
-  if (!selectedCombination){ showWarning('Выберите комбинацию'); return; }
-  closeValueModal();
-  if (currentModalMode === 2) await showTwoWordCombinations(selectedCombination);
-  else await showThreeWordCombinations(selectedCombination);
-}
-async function showTwoWordCombinations(combo){
-  const results = [];
-  for (const a of combo.wordsA) for (const b of combo.wordsB){
-    if (a.word !== b.word) results.push([a, b]);
-  }
-  displayResults(results, combo.target);
-  const h = document.querySelector('#resultsSection .results-header');
-  if (h) h.innerHTML = `
-    <div>
-      <div class="results-count">${combo.values[0]} + ${combo.values[1]} = ${combo.target}</div>
-      <div style="font-size:13px;opacity:.8;">Найдено ${results.length} пар</div>
-    </div>
-    <div class="export-buttons">
-      <button class="btn-secondary" onclick="openValueModal(2, ${combo.target})">🔄 Изменить</button>
-      <button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button>
-      <button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button>
-    </div>`;
-  document.getElementById('combinationsFound').textContent = results.length;
-}
-async function showThreeWordCombinations(combo){
-  const results = [];
-  for (const a of combo.wordsA) for (const b of combo.wordsB) for (const c of combo.wordsC){
-    if (a.word !== b.word && a.word !== c.word && b.word !== c.word) results.push([a, b, c]);
-  }
-  displayResults(results, combo.target);
-  const h = document.querySelector('#resultsSection .results-header');
-  if (h) h.innerHTML = `
-    <div>
-      <div class="results-count">${combo.values.join(' + ')} = ${combo.target}</div>
-      <div style="font-size:13px;opacity:.8;">Найдено ${results.length} троек</div>
-    </div>
-    <div class="export-buttons">
-      <button class="btn-secondary" onclick="openValueModal(3, ${combo.target})">🔄 Изменить</button>
-      <button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button>
-      <button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button>
-    </div>`;
-  document.getElementById('combinationsFound').textContent = results.length;
-}
-
-/* ============================================================
-   ОБРАБОТЧИКИ СОБЫТИЙ
-   ============================================================ */
-document.getElementById("themeSwitch").addEventListener("change", e => {
-  document.body.classList.toggle("night", e.target.checked);
-  try { localStorage.setItem("theme_night", String(e.target.checked)); } catch(err){}
-  document.getElementById("combThemeSwitch").checked = e.target.checked;
-});
-document.getElementById("combThemeSwitch").addEventListener("change", e => {
-  document.body.classList.toggle("night", e.target.checked);
-  try { localStorage.setItem("theme_night", String(e.target.checked)); } catch(err){}
-  document.getElementById("themeSwitch").checked = e.target.checked;
-});
-
-document.getElementById("anagramModeSwitch").addEventListener("change", e => {
-  try { localStorage.setItem("anagram_mode", String(e.target.checked)); } catch(err){}
-  updateInfoAndSuggestions();
-});
-
-const limitInput = document.getElementById('suggestionLimit');
-limitInput.addEventListener('input', function(){
-  let v = parseInt(this.value, 10);
-  if (isNaN(v) || v < 1) v = 1;
-  try { localStorage.setItem('suggestion_limit', String(v)); } catch(err){}
-  updateInfoAndSuggestions();
-});
-
-const orderSelect = document.getElementById('suggestionOrder');
-orderSelect.addEventListener('change', function(){
-  suggestionOrder = this.value;
-  try { localStorage.setItem('suggestion_order', suggestionOrder); } catch(err){}
-  updateInfoAndSuggestions();
-});
-
-const baseValueInput = document.getElementById('baseValueInput');
-baseValueInput.addEventListener('input', function(){
-  let v = parseInt(this.value, 10);
-  if (isNaN(v) || v < 2) v = 37;
-  baseValue = v;
-  try { localStorage.setItem('base_value', String(v)); } catch(err){}
-  updateInfoAndSuggestions();
-});
-
-document.getElementById('inputText').addEventListener('input', () => {
-  clearTimeout(window._deb);
-  window._deb = setTimeout(updateInfoAndSuggestions, 250);
-});
-document.querySelectorAll("input[name='calcMode']").forEach(r =>
-  r.addEventListener('change', updateInfoAndSuggestions));
-document.getElementById('meterType').addEventListener('change', updateInfoAndSuggestions);
-
-/* ============================================================
-   ИНИЦИАЛИЗАЦИЯ
-   ============================================================ */
+/* INIT */
 (function init(){
-  try {
+  try{
     loadDatabase();
-
-    const night = localStorage.getItem("theme_night") === "true";
-    document.getElementById("themeSwitch").checked = night;
-    document.getElementById("combThemeSwitch").checked = night;
-    document.body.classList.toggle("night", night);
-
-    const anMode = localStorage.getItem("anagram_mode") === "true";
-    document.getElementById("anagramModeSwitch").checked = anMode;
-
-    const sl = localStorage.getItem('suggestion_limit');
-    if (sl !== null){
-      const lim = parseInt(sl, 10);
-      if (!isNaN(lim) && lim >= 1) document.getElementById('suggestionLimit').value = lim;
-    }
-    const so = localStorage.getItem('suggestion_order');
-    if (so){
-      suggestionOrder = so;
-      document.getElementById('suggestionOrder').value = so;
-    }
-    const sbv = localStorage.getItem('base_value');
-    if (sbv !== null){
-      const bv = parseInt(sbv, 10);
-      if (!isNaN(bv) && bv >= 2){
-        baseValue = bv;
-        document.getElementById('baseValueInput').value = bv;
-      }
-    }
-
+    const night=localStorage.getItem("theme_night")==="true";
+    setNightTheme(night);
+    const am=localStorage.getItem("anagram_mode")==="true";
+    document.getElementById("anagramModeSwitch").checked=am;
+    const sl=localStorage.getItem('suggestion_limit');
+    if(sl!==null){const l=parseInt(sl,10);if(!isNaN(l)&&l>=1)document.getElementById('suggestionLimit').value=l;}
+    const so=localStorage.getItem('suggestion_order');
+    if(so){suggestionOrder=so;document.getElementById('suggestionOrder').value=so;}
+    const sbv=localStorage.getItem('base_value');
+    if(sbv!==null){const b=parseInt(sbv,10);if(!isNaN(b)&&b>=2){baseValue=b;document.getElementById('baseValueInput').value=b;}}
     initCombinator();
-
-    const savedApp = localStorage.getItem('active_app') || 'vechnoe';
-    switchApp(savedApp);
-
+    loadRhymeDatabase();
+    const rt=document.getElementById('rhymeThemeSwitch');
+    if(rt){rt.checked=document.body.classList.contains('night');rt.addEventListener('change',e=>setNightTheme(e.target.checked));}
+    const ta=document.getElementById('rhymeText');
+    const rs=document.getElementById('rhymeSearch');
+    const rb=document.getElementById('rhymeBaseValue');
+    if(ta){
+      ta.addEventListener('input',()=>{clearTimeout(window._rd);window._rd=setTimeout(updateRhymeSuggestions,250);});
+      ta.addEventListener('click',()=>{clearTimeout(window._rc);window._rc=setTimeout(updateRhymeSuggestions,50);});
+      ta.addEventListener('keyup',(e)=>{
+        if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','Delete','Backspace','Enter'].includes(e.key)){
+          clearTimeout(window._rc2);window._rc2=setTimeout(updateRhymeSuggestions,100);
+        }
+      });
+    }
+    if(rs)rs.addEventListener('input',updateRhymeSuggestions);
+    if(rb)rb.addEventListener('input',updateRhymeSuggestions);
+    const rl=document.getElementById('rhymeSuggestionLimit');
+    if(rl){
+      const savedLim=localStorage.getItem('rhyme_suggestion_limit');
+      if(savedLim!==null)rl.value=savedLim;
+      rl.addEventListener('input',()=>{
+        let v=parseInt(rl.value,10);
+        if(isNaN(v)||v<1)v=1;
+        try{localStorage.setItem('rhyme_suggestion_limit',String(v));}catch(e){}
+        updateRhymeSuggestions();
+      });
+    }
+    const ro=document.getElementById('rhymeSuggestionOrder');
+    if(ro){
+      const savedOrd=localStorage.getItem('rhyme_suggestion_order');
+      if(savedOrd)ro.value=savedOrd;
+      ro.addEventListener('change',()=>{
+        try{localStorage.setItem('rhyme_suggestion_order',ro.value);}catch(e){}
+        updateRhymeSuggestions();
+      });
+    }
+    updateRhymeDbInfo();
+    const sm=localStorage.getItem('rhyme_display_mode')||'inline';
+    applyRhymeDisplayMode(sm);
+    const sa=localStorage.getItem('active_app')||'vechnoe';
+    switchApp(sa);
     updateInfoAndSuggestions();
     console.log('✅ Инициализация завершена');
-  } catch(e){
-    console.error('Ошибка инициализации:', e);
-    alert('Ошибка инициализации: ' + e.message);
-  }
+  }catch(e){console.error('Ошибка инициализации:',e);}
 })();
 </script>
 </body>
