@@ -21,6 +21,7 @@ textarea{min-height:190px;resize:vertical;background:#fff;color:var(--text-plain
 body.night textarea{background:rgba(0,0,0,.20);color:var(--text-plain)}
 button{background:var(--button-bg);color:var(--button-text);cursor:pointer;font-weight:bold}
 button:hover{filter:brightness(1.05)}
+button:disabled{opacity:.5;cursor:not-allowed}
 .btn-secondary{background:var(--accent);color:white}.btn-danger{background:#e74c3c;color:white}.btn-copy{background:#f39c12;color:white}.btn-primary{background:var(--accent);color:white;border:none}.btn-success{background:var(--success);color:white;border:none}.btn-undo{background:#95a5a6;color:white}
 .top-controls{display:flex;justify-content:flex-end;gap:14px;align-items:center;font-size:13px;user-select:none;flex-wrap:wrap}
 .top-controls label{display:flex;gap:8px;align-items:center}
@@ -124,24 +125,9 @@ input[type="number"].comb-input{width:100px;padding:10px;border:2px solid var(--
 .rhyme-search-panel .rhyme-mode-wrap{display:flex;gap:8px;align-items:center}
 .rhyme-search-panel .rhyme-mode-select{width:auto;padding:6px 10px;font-size:13px;border-radius:6px;background:var(--card);color:var(--text-plain);border:1px solid var(--border);margin:0}
 .rhyme-search-panel .rhyme-close-btn{background:var(--soft);color:var(--text-plain);width:32px;height:32px;padding:0;border-radius:50%;font-size:18px;line-height:1;margin:0;display:flex;align-items:center;justify-content:center}
-
-/* Поле стиха — sticky сверху, всегда видно */
-.rhyme-text-panel{
-  position:sticky;
-  top:10px;
-  z-index:70;
-  box-shadow:0 4px 14px rgba(0,0,0,.18);
-  background:var(--card);
-}
-.rhyme-text-panel textarea{
-  max-height:35vh;
-  min-height:120px;
-  background:#fff;
-  color:var(--text-plain);
-}
+.rhyme-text-panel{position:sticky;top:10px;z-index:70;box-shadow:0 4px 14px rgba(0,0,0,.18);background:var(--card)}
+.rhyme-text-panel textarea{max-height:35vh;min-height:120px;background:#fff;color:var(--text-plain)}
 body.night .rhyme-text-panel textarea{background:rgba(0,0,0,.20);}
-
-/* Панель подсказок — режимы */
 .rhyme-search-panel.mode-sticky{position:sticky;top:calc(35vh + 30px);z-index:60;max-height:30vh;overflow-y:auto}
 .rhyme-search-panel.mode-inline{position:static;max-height:none;overflow:visible}
 .rhyme-search-panel.mode-bottom{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:960px;z-index:999;max-height:40vh;overflow-y:auto}
@@ -157,6 +143,7 @@ body.night .rhyme-text-panel textarea{background:rgba(0,0,0,.20);}
 .rhyme-status-banner.complete{border-left-color:var(--success);background:rgba(72,187,120,.12)}
 .rhyme-status-banner.incomplete{border-left-color:#f39c12;background:rgba(243,156,18,.12)}
 .rhyme-show-all{font-weight:700;background:var(--accent);color:white;border:none}
+.rhyme-undo-btn{background:#95a5a6;color:white;margin-top:6px}
 @media(max-width:768px){.controls{flex-direction:column}.results-header{flex-direction:column;align-items:flex-start}.pagination-controls{flex-direction:column}.page-size-selector{margin-left:0}.paste-area{flex-direction:column}.rhyme-search-panel.mode-overlay{width:calc(100vw - 24px);right:12px;left:12px;bottom:12px}.rhyme-search-panel.mode-bottom{width:calc(100vw - 12px);bottom:6px}.rhyme-search-panel.mode-sticky{top:calc(40vh + 30px)}.rhyme-text-panel textarea{max-height:40vh}}
 </style>
 </head>
@@ -247,20 +234,21 @@ body.night .rhyme-text-panel textarea{background:rgba(0,0,0,.20);}
     </div>
     <div class="panel">
       <h3>📥 Загрузка списка рифм</h3>
-      <p class="hint">Вставь список слов с ударениями. Все слова одного списка — рифмы друг другу. Слова в скобках игнорируются.</p>
+      <p class="hint">Вставь список слов с ударениями. Каждая загрузка создаёт отдельную группу. Слова в скобках игнорируются.</p>
       <textarea id="rhymeInput" placeholder="любо́вь&#10;вно́вь&#10;морко́вь..."></textarea>
       <button class="btn-primary" onclick="loadRhymeList()">📥 Загрузить рифмы</button>
       <button class="btn-secondary" onclick="uploadRhymeFile()">📂 Из файла TXT</button>
+      <button class="btn-secondary" onclick="rebuildRhymeParts()" title="Пересчитать rhymePart у всех слов (группы не меняются)">🔁 Пересобрать rhymePart</button>
+      <button class="btn-secondary" onclick="splitGroupsByRhymePart()" title="Разбить все группы заново по rhymePart">💥 Разбить группы по rhymePart</button>
+      <button class="rhyme-undo-btn" id="rhymeUndoBtn" onclick="undoDictionaryAction()" disabled title="Отменить последнее действие со словарём">↩️ Отменить действие со словарём</button>
       <div id="rhymeLoadStatus" class="small-note" style="margin-top:10px;"></div>
     </div>
 
-    <!-- ПОЛЕ СТИХА — sticky сверху -->
     <div class="panel rhyme-text-panel">
       <h3>✍️ Твой стих</h3>
       <textarea id="rhymeText" placeholder="Пиши здесь. Сумма каждой строки должна дойти до 37 (или твоей основы) — тогда появятся рифмы для следующей строки."></textarea>
     </div>
 
-    <!-- ПАНЕЛЬ ПОДСКАЗОК — под полем -->
     <div class="panel rhyme-search-panel mode-inline" id="rhymeSearchPanel">
       <div class="rhyme-panel-header">
         <h3>🔍 Подсказки</h3>
@@ -298,6 +286,7 @@ body.night .rhyme-text-panel textarea{background:rgba(0,0,0,.20);}
     <button class="btn-secondary" onclick="exportRhymeDatabase()">💾 Экспорт словаря рифм</button>
     <button class="btn-secondary" onclick="importRhymeDatabase()">📂 Импорт словаря рифм</button>
     <button class="btn-danger" onclick="clearRhymeDatabase()">🗑 Очистить словарь рифм</button>
+    <button class="rhyme-undo-btn" id="rhymeUndoBtn2" onclick="undoDictionaryAction()" disabled title="Отменить последнее действие со словарём">↩️ Отменить действие со словарём</button>
   </div>
 </div>
 
@@ -408,16 +397,154 @@ async function applySelectedCombination(){if(!selectedCombination){showWarning('
 async function showTwoWordCombinations(co){const res=[];for(const a of co.wordsA)for(const b of co.wordsB){if(a.word!==b.word)res.push([a,b]);}displayResults(res,co.target);const h=document.querySelector('#resultsSection .results-header');if(h)h.innerHTML=`<div><div class="results-count">${co.values[0]} + ${co.values[1]} = ${co.target}</div><div style="font-size:13px;opacity:.8;">Найдено ${res.length} пар</div></div><div class="export-buttons"><button class="btn-secondary" onclick="openValueModal(2,${co.target})">🔄 Изменить</button><button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button><button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button></div>`;document.getElementById('combinationsFound').textContent=res.length;}
 async function showThreeWordCombinations(co){const res=[];for(const a of co.wordsA)for(const b of co.wordsB)for(const c of co.wordsC){if(a.word!==b.word&&a.word!==c.word&&b.word!==c.word)res.push([a,b,c]);}displayResults(res,co.target);const h=document.querySelector('#resultsSection .results-header');if(h)h.innerHTML=`<div><div class="results-count">${co.values.join(' + ')} = ${co.target}</div><div style="font-size:13px;opacity:.8;">Найдено ${res.length} троек</div></div><div class="export-buttons"><button class="btn-secondary" onclick="openValueModal(3,${co.target})">🔄 Изменить</button><button class="btn-secondary" onclick="exportToTxt()">📑 TXT</button><button class="btn-secondary" onclick="exportToCsv()">📊 CSV</button></div>`;document.getElementById('combinationsFound').textContent=res.length;}
 
-/* RHYMES */
+/* ============ RHYMES ============ */
 let rhymeDatabase={},rhymeGroups={};
 function saveRhymeDatabase(){try{localStorage.setItem('rhymeDatabase',JSON.stringify(rhymeDatabase));localStorage.setItem('rhymeGroups',JSON.stringify(rhymeGroups));}catch(e){}}
 function loadRhymeDatabase(){try{const d=localStorage.getItem('rhymeDatabase');const g=localStorage.getItem('rhymeGroups');if(d)rhymeDatabase=JSON.parse(d)||{};if(g)rhymeGroups=JSON.parse(g)||{};}catch(e){rhymeDatabase={};rhymeGroups={};}}
-function getRhymePart(w){const n=w.normalize('NFD');const c=Array.from(n);const v=/[аеёиоуыэюя]/i;let si=-1;for(let i=0;i<c.length;i++){if(c[i].charCodeAt(0)===0x0301){si=i;break;}}if(si===-1)return null;let vi=-1;for(let i=si-1;i>=0;i--){if(v.test(c[i])){vi=i;break;}}if(vi===-1)return null;return c.slice(vi).join('').normalize('NFC').replace(/\u0301/g,'');}
-function getStressPositionLenient(w){const n=w.normalize('NFD');const c=Array.from(n);const v=/[аеёиоуыэюя]/i;let si=-1;for(let i=0;i<c.length;i++){if(c[i].charCodeAt(0)===0x0301){si=i;break;}}if(si===-1)return null;let n2=0;for(let i=0;i<si;i++){if(v.test(c[i]))n2++;}return n2>0?n2:null;}
+
+function getRhymePart(wordWithStress){
+  const nfd = wordWithStress.normalize('NFD');
+  const chars = Array.from(nfd);
+  const vowelRegex = /[аеёиоуыэюя]/i;
+  let stressIdx = -1;
+  
+  // Ищем явное ударение
+  for (let i = 0; i < chars.length; i++){
+    if (chars[i].charCodeAt(0) === 0x0301){ stressIdx = i; break; }
+  }
+  
+  // Если ударения нет, но есть "ё" — считаем её ударной
+  if (stressIdx === -1) {
+    for (let i = 0; i < chars.length; i++) {
+      if (chars[i].toLowerCase() === 'ё') {
+        stressIdx = i;
+        break;
+      }
+    }
+  }
+  
+  if (stressIdx === -1) return null;
+  
+  let vowelIdx = -1;
+  for (let i = stressIdx - 1; i >= 0; i--){
+    if (vowelRegex.test(chars[i])){ vowelIdx = i; break; }
+  }
+  if (vowelIdx === -1) vowelIdx = stressIdx;
+  
+  let startIdx = vowelIdx;
+  if (vowelIdx > 0){
+    const prev = chars[vowelIdx - 1];
+    if (prev.charCodeAt(0) !== 0x0301 &&
+        !vowelRegex.test(prev) &&
+        prev !== 'ь' && prev !== 'ъ'){
+      startIdx = vowelIdx - 1;
+    }
+  }
+  return chars.slice(startIdx).join('').normalize('NFC').replace(/\u0301/g, '');
+}
+
+function getStressPositionLenient(w){const n=w.normalize('NFD');const c=Array.from(n);const v=/[аеёиоуыэюя]/i;let si=-1;for(let i=0;i<c.length;i++){if(c[i].charCodeAt(0)===0x0301){si=i;break;}if(c[i].toLowerCase()==='ё'&&si===-1){si=i;}}if(si===-1)return null;let n2=0;for(let i=0;i<si;i++){if(v.test(c[i]))n2++;}return n2>0?n2:null;}
+
 function loadRhymeList(){const t=document.getElementById('rhymeInput').value.trim();if(!t){alert('Вставь список рифм');return;}processRhymeText(t);}
 function uploadRhymeFile(){const f=document.createElement('input');f.type='file';f.accept='.txt';f.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>processRhymeText(ev.target.result);r.readAsText(file,'UTF-8');};f.click();}
-function processRhymeText(text){const cleaned=text.replace(/\([^)]*\)/g,' ');const words=cleaned.match(/[А-Яа-яЁё\u0301]+/g)||[];if(!words.length){alert('Слова не найдены');return;}const parsed=[];const seen=new Set();for(const w of words){const hs=w.normalize('NFD').includes('\u0301');const n=w.normalize('NFC').replace(/\u0301/g,'').toLowerCase();if(n.length<2)continue;if(seen.has(n))continue;seen.add(n);const v=calculateWordValueRussian(n);const sp=hs?getStressPositionLenient(w):null;const sy=countVowels(n);const rp=hs?getRhymePart(w):null;parsed.push({word:n,value:v,stress:sp,syllables:sy,rhymePart:rp});}if(!parsed.length){alert('Слова не распознаны');return;}const eg=new Set();for(const p of parsed){const ex=rhymeDatabase[p.word];if(ex&&ex.groupId&&rhymeGroups[ex.groupId])eg.add(ex.groupId);}let fg,fw;if(eg.size>0){const mg=new Set(parsed.map(p=>p.word));for(const gid of eg){if(rhymeGroups[gid]){for(const w of rhymeGroups[gid])mg.add(w);delete rhymeGroups[gid];}}fw=Array.from(mg);fg='g_'+Date.now()+'_merged';}else{fw=parsed.map(p=>p.word);fg='g_'+Date.now();}for(const p of parsed){const ex=rhymeDatabase[p.word];rhymeDatabase[p.word]={value:p.value,stress:p.stress||(ex&&ex.stress)||null,syllables:p.syllables||(ex&&ex.syllables)||null,rhymePart:p.rhymePart||(ex&&ex.rhymePart)||null,groupId:fg};}for(const w of fw){if(rhymeDatabase[w])rhymeDatabase[w].groupId=fg;}rhymeGroups[fg]=fw;for(const p of parsed){if(!wordDatabase[p.word]||typeof wordDatabase[p.word]==='number'){if(p.stress){wordDatabase[p.word]={value:p.value,meter:determineMeter(p.stress,p.syllables),stress:p.stress,syllables:p.syllables};}else{wordDatabase[p.word]=p.value;}}}saveDatabase();saveRhymeDatabase();document.getElementById('rhymeLoadStatus').textContent=`✅ Загружено ${parsed.length} слов. Всего: ${Object.keys(rhymeDatabase).length} слов, ${Object.keys(rhymeGroups).length} групп.`;updateRhymeDbInfo();updateRhymeSuggestions();}
-function findRhymesForWord(word){const key=(word||'').toLowerCase().normalize('NFC').replace(/\u0301/g,'').replace(/[^а-яё]/g,'');if(!key)return{word:key,rhymes:[]};const entry=rhymeDatabase[key];const rhymes=new Set();if(entry){if(entry.groupId&&rhymeGroups[entry.groupId]){for(const w of rhymeGroups[entry.groupId])if(w!==key)rhymes.add(w);}if(entry.rhymePart){for(const w in rhymeDatabase){if(w===key)continue;if(rhymeDatabase[w].rhymePart===entry.rhymePart)rhymes.add(w);}}}return{word:key,rhymes:Array.from(rhymes)};}
+
+function processRhymeText(text){
+  const cleaned = text.replace(/\([^)]*\)/g, ' ');
+  const words = cleaned.match(/[А-Яа-яЁё\u0301]+/g) || [];
+  if (!words.length){ alert('Слова не найдены'); return; }
+  const parsed = [];
+  const seen = new Set();
+  for (const w of words){
+    const hs = w.normalize('NFD').includes('\u0301') || w.toLowerCase().includes('ё');
+    const n = w.normalize('NFC').replace(/\u0301/g, '').toLowerCase();
+    if (n.length < 2) continue;
+    if (seen.has(n)) continue;
+    seen.add(n);
+    const v = calculateWordValueRussian(n);
+    const sp = hs ? getStressPositionLenient(w) : null;
+    const sy = countVowels(n);
+    const rp = hs ? getRhymePart(w) : null;
+    parsed.push({ word: n, value: v, stress: sp, syllables: sy, rhymePart: rp });
+  }
+  if (!parsed.length){ alert('Слова не распознаны'); return; }
+
+  pushDictHistory(`Загрузка ${parsed.length} слов в рифмы`);
+
+  const newGroupId = 'g_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+  const newWords = [];
+  for (const p of parsed){
+    const ex = rhymeDatabase[p.word];
+    rhymeDatabase[p.word] = {
+      value: p.value,
+      stress: p.stress || (ex && ex.stress) || null,
+      syllables: p.syllables || (ex && ex.syllables) || null,
+      rhymePart: p.rhymePart || (ex && ex.rhymePart) || null,
+      groupId: (ex && ex.groupId) || newGroupId
+    };
+    if (!ex) newWords.push(p.word);
+  }
+  rhymeGroups[newGroupId] = newWords;
+
+  for (const p of parsed){
+    if (!wordDatabase[p.word] || typeof wordDatabase[p.word] === 'number'){
+      if (p.stress){
+        wordDatabase[p.word] = { value: p.value, meter: determineMeter(p.stress, p.syllables), stress: p.stress, syllables: p.syllables };
+      } else {
+        wordDatabase[p.word] = p.value;
+      }
+    }
+  }
+  saveDatabase();
+  saveRhymeDatabase();
+  document.getElementById('rhymeLoadStatus').textContent =
+    `✅ Загружено ${parsed.length} слов (новых: ${newWords.length}). Всего: ${Object.keys(rhymeDatabase).length} слов, ${Object.keys(rhymeGroups).length} групп.`;
+  updateRhymeDbInfo();
+  updateRhymeSuggestions();
+  updateDictUndoButtons();
+}
+
+/**
+ * Исправленная функция поиска рифм.
+ * Добавлен поиск по глагольным окончаниям, чтобы глаголы рифмовались между собой
+ * независимо от согласной перед ударной гласной.
+ */
+function findRhymesForWord(word){
+  const key = (word||'').toLowerCase().normalize('NFC').replace(/\u0301/g,'').replace(/[^а-яё]/g,'');
+  if (!key) return { word: key, rhymes: [] };
+  
+  const entry = rhymeDatabase[key];
+  const rhymes = new Set();
+  
+  if (entry){
+    if (entry.groupId && rhymeGroups[entry.groupId]){
+      for (const w of rhymeGroups[entry.groupId]) if (w !== key) rhymes.add(w);
+    }
+    
+    if (entry.rhymePart){
+      for (const w in rhymeDatabase){
+        if (w === key) continue;
+        if (rhymeDatabase[w].rhymePart === entry.rhymePart) rhymes.add(w);
+      }
+    }
+
+    // Ищем по глагольным окончаниям
+    const endings = ['ют', 'ут', 'ат', 'ят', 'ёт', 'ет', 'ают', 'яют', 'уют', 'иют', 'еют', 'оют', 'ешь', 'ишь', 'ует', 'уют', 'еют', 'ает', 'яет'];
+    for (const ending of endings) {
+      if (key.endsWith(ending)) {
+        for (const w in rhymeDatabase) {
+          if (w === key) continue;
+          if (w.endsWith(ending)) {
+             if (w.length >= key.length - 2) rhymes.add(w);
+          }
+        }
+        break;
+      }
+    }
+  }
+  
+  return { word: key, rhymes: Array.from(rhymes) };
+}
+
 function getRhymeBase(){const v=parseInt(document.getElementById('rhymeBaseValue').value);return(isNaN(v)||v<2)?37:v;}
 function getRhymeSuggestionLimit(){const el=document.getElementById('rhymeSuggestionLimit');if(!el)return 60;let v=parseInt(el.value,10);if(isNaN(v)||v<1)v=60;return v;}
 function getRhymeSuggestionOrder(){const el=document.getElementById('rhymeSuggestionOrder');return el?el.value:'default';}
@@ -428,16 +555,122 @@ function getCurrentLineInfo(){const ta=document.getElementById('rhymeText');cons
 function updateRhymeSuggestions(){const baseVal=getRhymeBase();document.getElementById('rhymeBaseLabel').textContent=baseVal;const {idx,words,sum}=getCurrentLineInfo();const rem=sum%baseVal;const lineComplete=words.length>0&&rem===0;document.getElementById('rhymeSum').textContent=sum;document.getElementById('rhymeNeed').textContent=lineComplete?0:(sum===0?baseVal:(baseVal-rem));const searchInput=document.getElementById('rhymeSearch');if(searchInput.value.trim()){showRhymesForWord(searchInput.value.trim(),'🔍 ручной поиск');return;}if(!lineComplete){showDictionaryForLine(sum,baseVal,words.length,idx);return;}const lastWord=words[words.length-1];showRhymesForWord(lastWord,`📝 строка ${idx+1} завершена (=${sum}) → рифма для следующей`);}
 function showDictionaryForLine(lineSum,baseVal,wordCount,lineIdx){const output=document.getElementById('rhymeOutput');output.innerHTML='';if(wordCount===0){const banner=document.createElement('div');banner.className='rhyme-status-banner incomplete';banner.innerHTML=`<strong>📝 Строка ${lineIdx+1} — пустая</strong><br><span style="font-size:13px;opacity:.8;">Начни строку. Как только сумма достигнет кратности ${baseVal}, покажу рифмы.</span>`;output.appendChild(banner);const completers=[];for(const w in wordDatabase){if(w.length<2)continue;const val=getEntryValue(wordDatabase[w]);if(val===baseVal)completers.push({w,val});}if(completers.length){const ordered=applyRhymeSuggestionOrder(completers);const block=document.createElement('div');block.className='rhyme-group-block';block.innerHTML=`<div class="rhyme-group-header">Одним словом до ${baseVal} (${ordered.length})</div>`;const body=document.createElement('div');body.className='rhyme-group-body';renderWordTags(body,ordered);block.appendChild(body);output.appendChild(block);}else{const p=document.createElement('p');p.className='hint';p.textContent=`Слов со значением ${baseVal} нет — пиши любое, я подскажу как завершить строку.`;output.appendChild(p);}return;}const need1=baseVal-(lineSum%baseVal);const targets=[{need:need1,total:lineSum+need1},{need:need1+baseVal,total:lineSum+need1+baseVal}];const banner=document.createElement('div');banner.className='rhyme-status-banner incomplete';banner.innerHTML=`<strong>📝 Строка ${lineIdx+1} — не завершена</strong> — сумма: <b>${lineSum}</b><br><span style="font-size:13px;opacity:.8;">Добавь слово, чтобы набрать кратность ${baseVal}. После этого покажу рифмы.</span>`;output.appendChild(banner);let hasAny=false;for(const t of targets){let words=findDictionaryWords(t.need,baseVal);if(!words.length)continue;hasAny=true;const isFallback=words.isFallback===true;words=applyRhymeSuggestionOrder(words);const block=document.createElement('div');block.className='rhyme-group-block';block.innerHTML=`<div class="rhyme-group-header">Добавь ${t.need} → строка = ${t.total}${isFallback?' (по остатку)':''} (${words.length})</div>`;const body=document.createElement('div');body.className='rhyme-group-body';renderWordTags(body,words);block.appendChild(body);output.appendChild(block);}if(!hasAny){const p=document.createElement('p');p.className='hint';p.textContent='Нет слов нужного значения в словаре. Загрузи их или измени основу.';output.appendChild(p);}}
 function findDictionaryWords(need,baseVal){const exact=[];for(const w in wordDatabase){if(w.length<2)continue;const val=getEntryValue(wordDatabase[w]);if(val===need)exact.push({w,val});}if(exact.length)return exact;const targetRem=((need%baseVal)+baseVal)%baseVal;const fallback=[];for(const w in wordDatabase){if(w.length<2)continue;const val=getEntryValue(wordDatabase[w]);if(val<=0)continue;if(((val%baseVal)+baseVal)%baseVal===targetRem)fallback.push({w,val});}fallback.isFallback=true;return fallback;}
-function showRhymesForWord(word,label){const output=document.getElementById('rhymeOutput');output.innerHTML='';const baseVal=getRhymeBase();const {word:key,rhymes}=findRhymesForWord(word);if(!rhymes.length){const banner=document.createElement('div');banner.className='rhyme-status-banner complete';const msg=rhymeDatabase[key]?`Рифм к «${key}» пока нет. Загрузи список рифм с этим словом.`:`Слово «${key}» отсутствует в словаре рифм.`;banner.innerHTML=`<strong>«${key}»</strong> — ${label}<br><span style="font-size:13px;opacity:.8;">${msg}</span>`;output.appendChild(banner);return;}let items=rhymes.map(w=>({w,val:rhymeDatabase[w].value}));const ord=getRhymeSuggestionOrder();if(ord==='default')items.sort((a,b)=>a.val-b.val);const ordered=applyRhymeSuggestionOrder(items);const banner=document.createElement('div');banner.className='rhyme-status-banner complete';banner.innerHTML=`<strong>Рифмы для «${key}»</strong> — ${rhymes.length} вариантов <span class="rhyme-source-badge" style="margin-left:6px;">${label}</span><br><span style="font-size:13px;opacity:.8;">Клик по слову — вставит в текущую строку. Значения помогут вписать в ${baseVal}.</span>`;output.appendChild(banner);const block=document.createElement('div');block.className='rhyme-group-block';const body=document.createElement('div');body.className='rhyme-group-body';renderWordTags(body,ordered);block.appendChild(body);output.appendChild(block);}
+
+function showRhymesForWord(word,label){
+  const output=document.getElementById('rhymeOutput');output.innerHTML='';
+  const baseVal=getRhymeBase();
+  const {word:key,rhymes}=findRhymesForWord(word);
+  if(!rhymes.length){
+    const banner=document.createElement('div');banner.className='rhyme-status-banner complete';
+    const msg=rhymeDatabase[key]?`Рифм к «${key}» пока нет. Загрузи список рифм с этим словом.`:`Слово «${key}» отсутствует в словаре рифм.`;
+    banner.innerHTML=`<strong>«${key}»</strong> — ${label}<br><span style="font-size:13px;opacity:.8;">${msg}</span>`;
+    output.appendChild(banner);return;
+  }
+  let items=rhymes.map(w=>({w,val:rhymeDatabase[w].value}));
+  const ord=getRhymeSuggestionOrder();if(ord==='default')items.sort((a,b)=>a.val-b.val);
+  const ordered=applyRhymeSuggestionOrder(items);
+  const rp=rhymeDatabase[key]&&rhymeDatabase[key].rhymePart;
+  const banner=document.createElement('div');banner.className='rhyme-status-banner complete';
+  banner.innerHTML=`<strong>Рифмы для «${key}»</strong> — ${rhymes.length} вариантов${rp?` <span style="font-size:12px;opacity:.75;">(ключ: -${rp})</span>`:''} <span class="rhyme-source-badge" style="margin-left:6px;">${label}</span><br><span style="font-size:13px;opacity:.8;">Клик по слову — вставит в текущую строку. Значения помогут вписать в ${baseVal}.</span>`;
+  output.appendChild(banner);
+  const block=document.createElement('div');block.className='rhyme-group-block';
+  const body=document.createElement('div');body.className='rhyme-group-body';
+  renderWordTags(body,ordered);block.appendChild(body);output.appendChild(block);
+}
+
 function insertRhyme(word){const ta=document.getElementById('rhymeText');const pos=ta.selectionStart;const before=ta.value.substring(0,pos);const after=ta.value.substring(ta.selectionEnd);const sep=(before.length&&!/\s$/.test(before))?' ':'';const sepAfter=(after.length&&!/^\s/.test(after))?' ':'';ta.value=before+sep+word+sepAfter+after;const newPos=pos+sep.length+word.length;ta.focus();ta.selectionStart=ta.selectionEnd=newPos;updateRhymeSuggestions();}
 function updateRhymeDbInfo(){const i=document.getElementById('rhymeDbInfo');if(!i)return;const wc=Object.keys(rhymeDatabase).length;const gc=Object.keys(rhymeGroups).length;i.textContent=`📚 Словарь рифм: ${wc} слов, ${gc} групп`;}
+
 function exportRhymeDatabase(){const d={rhymeDatabase,rhymeGroups,exportedAt:new Date().toISOString()};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='rhyme_database.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);alert('Экспортировано!');}
-function importRhymeDatabase(){const f=document.createElement('input');f.type='file';f.accept='.json';f.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.rhymeDatabase)Object.assign(rhymeDatabase,d.rhymeDatabase);if(d.rhymeGroups)Object.assign(rhymeGroups,d.rhymeGroups);saveRhymeDatabase();updateRhymeDbInfo();updateRhymeSuggestions();alert('Импортировано!');}catch(e){alert('Ошибка: '+e.message);}};r.readAsText(file);};f.click();}
-function clearRhymeDatabase(){if(!confirm('Очистить словарь рифм?'))return;rhymeDatabase={};rhymeGroups={};saveRhymeDatabase();updateRhymeDbInfo();updateRhymeSuggestions();document.getElementById('rhymeLoadStatus').textContent='';}
+function importRhymeDatabase(){const f=document.createElement('input');f.type='file';f.accept='.json';f.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);pushDictHistory('Импорт словаря рифм');if(d.rhymeDatabase)Object.assign(rhymeDatabase,d.rhymeDatabase);if(d.rhymeGroups)Object.assign(rhymeGroups,d.rhymeGroups);saveRhymeDatabase();updateRhymeDbInfo();updateRhymeSuggestions();updateDictUndoButtons();alert('Импортировано!');}catch(e){alert('Ошибка: '+e.message);}};r.readAsText(file);};f.click();}
+function clearRhymeDatabase(){if(!confirm('Очистить словарь рифм?'))return;pushDictHistory('Очистка словаря рифм');rhymeDatabase={};rhymeGroups={};saveRhymeDatabase();updateRhymeDbInfo();updateRhymeSuggestions();updateDictUndoButtons();document.getElementById('rhymeLoadStatus').textContent='';}
+
+function rebuildRhymeParts(){
+  if(!confirm('Пересчитать rhymePart у всех слов в базе? Группы не изменятся.')) return;
+  pushDictHistory('Пересборка rhymePart');
+  let fixed = 0, total = 0;
+  for (const w in rhymeDatabase){
+    const e = rhymeDatabase[w];
+    if (!e || !e.stress) continue;
+    total++;
+    const withStress = applyStressBySyllable(w, e.stress);
+    if (!withStress) continue;
+    const newRp = getRhymePart(withStress);
+    if (newRp && newRp !== e.rhymePart){
+      e.rhymePart = newRp;
+      fixed++;
+    }
+  }
+  saveRhymeDatabase();
+  updateRhymeDbInfo();
+  updateRhymeSuggestions();
+  updateDictUndoButtons();
+  alert(`Пересобрано. Всего со stress: ${total}. Обновлено rhymePart: ${fixed}.`);
+}
+
+function applyStressBySyllable(word, stressN){
+  const nfd = word.normalize('NFD');
+  const chars = Array.from(nfd);
+  const vowelRegex = /[аеёиоуыэюя]/i;
+  let count = 0;
+  for (let i = 0; i < chars.length; i++){
+    if (vowelRegex.test(chars[i])){
+      count++;
+      if (count === stressN){
+        chars.splice(i + 1, 0, '\u0301');
+        return chars.join('').normalize('NFC');
+      }
+    }
+  }
+  return null;
+}
+
+function splitGroupsByRhymePart(){
+  if(!confirm('Разбить все группы заново по rhymePart?')) return;
+  pushDictHistory('Разбивка групп по rhymePart');
+  const byRp = {};
+  let noRp = 0;
+  for (const w in rhymeDatabase){
+    const e = rhymeDatabase[w];
+    if (!e) continue;
+    let rp = e.rhymePart;
+    if (!rp && e.stress){
+      const withStress = applyStressBySyllable(w, e.stress);
+      if (withStress) rp = getRhymePart(withStress);
+    }
+    if (!rp){ noRp++; continue; }
+    e.rhymePart = rp;
+    if (!byRp[rp]) byRp[rp] = [];
+    byRp[rp].push(w);
+  }
+  const newGroups = {};
+  let i = 0;
+  for (const rp in byRp){
+    const gid = 'g_' + Date.now() + '_rp' + (++i);
+    newGroups[gid] = byRp[rp];
+    for (const w of byRp[rp]) rhymeDatabase[w].groupId = gid;
+  }
+  rhymeGroups = newGroups;
+  saveRhymeDatabase();
+  updateRhymeDbInfo();
+  updateRhymeSuggestions();
+  updateDictUndoButtons();
+  alert(`Разбито на ${Object.keys(newGroups).length} групп по rhymePart. Слов без rhymePart: ${noRp}.`);
+}
+
 function applyRhymeDisplayMode(mode){const p=document.getElementById('rhymeSearchPanel');if(!p)return;p.classList.remove('mode-sticky','mode-inline','mode-bottom','mode-overlay');p.classList.add('mode-'+mode);p.classList.remove('hidden');const s=document.getElementById('rhymeDisplayMode');if(s)s.value=mode;const b=document.getElementById('rhymeShowBtn');if(b)b.style.display='none';try{localStorage.setItem('rhyme_display_mode',mode);}catch(e){}}
 function changeRhymeDisplayMode(m){applyRhymeDisplayMode(m);}
 function hideRhymePanel(){const p=document.getElementById('rhymeSearchPanel');if(p)p.classList.add('hidden');const b=document.getElementById('rhymeShowBtn');if(b)b.style.display='block';}
 function showRhymePanel(){const p=document.getElementById('rhymeSearchPanel');if(p)p.classList.remove('hidden');const b=document.getElementById('rhymeShowBtn');if(b)b.style.display='none';}
+
+/* ИСТОРИЯ */
+const DICT_HISTORY_MAX=30;
+let dictHistory=[];
+let dictHistoryBusy=false;
+function snapshotDictionaries(){return{wordDatabase:JSON.parse(JSON.stringify(wordDatabase)),rhymeDatabase:JSON.parse(JSON.stringify(rhymeDatabase)),rhymeGroups:JSON.parse(JSON.stringify(rhymeGroups))};}
+function pushDictHistory(label){if(dictHistoryBusy)return;try{const snap=snapshotDictionaries();dictHistory.push({label,...snap,ts:Date.now()});if(dictHistory.length>DICT_HISTORY_MAX)dictHistory.shift();updateDictUndoButtons();}catch(e){console.error('pushDictHistory:',e);}}
+function updateDictUndoButtons(){const btns=[document.getElementById('rhymeUndoBtn'),document.getElementById('rhymeUndoBtn2')];const has=dictHistory.length>0;for(const b of btns){if(!b)continue;b.disabled=!has;b.textContent=has?`↩️ Отменить: ${dictHistory[dictHistory.length-1].label} (${dictHistory.length})`:'↩️ Отменить действие со словарём';}}
+function undoDictionaryAction(){if(!dictHistory.length){alert('Нечего отменять.');return;}const last=dictHistory.pop();dictHistoryBusy=true;try{wordDatabase=last.wordDatabase||{};rhymeDatabase=last.rhymeDatabase||{};rhymeGroups=last.rhymeGroups||{};saveDatabase();saveRhymeDatabase();updateRhymeDbInfo();updateInfoAndSuggestions();updateRhymeSuggestions();const status=document.getElementById('rhymeLoadStatus');if(status){status.textContent=`↩️ Отменено: «${last.label}».`;status.style.color='var(--accent)';}}finally{dictHistoryBusy=false;updateDictUndoButtons();}}
 
 /* INIT */
 (function init(){
@@ -460,38 +693,15 @@ function showRhymePanel(){const p=document.getElementById('rhymeSearchPanel');if
     const ta=document.getElementById('rhymeText');
     const rs=document.getElementById('rhymeSearch');
     const rb=document.getElementById('rhymeBaseValue');
-    if(ta){
-      ta.addEventListener('input',()=>{clearTimeout(window._rd);window._rd=setTimeout(updateRhymeSuggestions,250);});
-      ta.addEventListener('click',()=>{clearTimeout(window._rc);window._rc=setTimeout(updateRhymeSuggestions,50);});
-      ta.addEventListener('keyup',(e)=>{
-        if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','Delete','Backspace','Enter'].includes(e.key)){
-          clearTimeout(window._rc2);window._rc2=setTimeout(updateRhymeSuggestions,100);
-        }
-      });
-    }
+    if(ta){ta.addEventListener('input',()=>{clearTimeout(window._rd);window._rd=setTimeout(updateRhymeSuggestions,250);});ta.addEventListener('click',()=>{clearTimeout(window._rc);window._rc=setTimeout(updateRhymeSuggestions,50);});ta.addEventListener('keyup',(e)=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','Delete','Backspace','Enter'].includes(e.key)){clearTimeout(window._rc2);window._rc2=setTimeout(updateRhymeSuggestions,100);}});}
     if(rs)rs.addEventListener('input',updateRhymeSuggestions);
     if(rb)rb.addEventListener('input',updateRhymeSuggestions);
     const rl=document.getElementById('rhymeSuggestionLimit');
-    if(rl){
-      const savedLim=localStorage.getItem('rhyme_suggestion_limit');
-      if(savedLim!==null)rl.value=savedLim;
-      rl.addEventListener('input',()=>{
-        let v=parseInt(rl.value,10);
-        if(isNaN(v)||v<1)v=1;
-        try{localStorage.setItem('rhyme_suggestion_limit',String(v));}catch(e){}
-        updateRhymeSuggestions();
-      });
-    }
+    if(rl){const savedLim=localStorage.getItem('rhyme_suggestion_limit');if(savedLim!==null)rl.value=savedLim;rl.addEventListener('input',()=>{let v=parseInt(rl.value,10);if(isNaN(v)||v<1)v=1;try{localStorage.setItem('rhyme_suggestion_limit',String(v));}catch(e){}updateRhymeSuggestions();});}
     const ro=document.getElementById('rhymeSuggestionOrder');
-    if(ro){
-      const savedOrd=localStorage.getItem('rhyme_suggestion_order');
-      if(savedOrd)ro.value=savedOrd;
-      ro.addEventListener('change',()=>{
-        try{localStorage.setItem('rhyme_suggestion_order',ro.value);}catch(e){}
-        updateRhymeSuggestions();
-      });
-    }
+    if(ro){const savedOrd=localStorage.getItem('rhyme_suggestion_order');if(savedOrd)ro.value=savedOrd;ro.addEventListener('change',()=>{try{localStorage.setItem('rhyme_suggestion_order',ro.value);}catch(e){}updateRhymeSuggestions();});}
     updateRhymeDbInfo();
+    updateDictUndoButtons();
     const sm=localStorage.getItem('rhyme_display_mode')||'inline';
     applyRhymeDisplayMode(sm);
     const sa=localStorage.getItem('active_app')||'vechnoe';
